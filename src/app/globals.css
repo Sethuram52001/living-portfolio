@@ -1,15 +1,117 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --lp-color-surface: #f9f9ff;
+  --lp-color-surface-dim: #cfdaf2;
+  --lp-color-surface-bright: #f9f9ff;
+  --lp-color-surface-container-lowest: #ffffff;
+  --lp-color-surface-container-low: #f0f3ff;
+  --lp-color-surface-container: #e7eeff;
+  --lp-color-surface-container-high: #dee8ff;
+  --lp-color-surface-container-highest: #d8e3fb;
+  --lp-color-on-surface: #111c2d;
+  --lp-color-on-surface-variant: #3c4a42;
+  --lp-color-inverse-surface: #263143;
+  --lp-color-inverse-on-surface: #ecf1ff;
+  --lp-color-outline: #6c7a71;
+  --lp-color-outline-variant: #bbcabf;
+  --lp-color-ink: #1e293b;
+  --lp-color-primary: #006c49;
+  --lp-color-on-primary: #ffffff;
+  --lp-color-primary-container: #10b981;
+  --lp-color-on-primary-container: #00422b;
+  --lp-color-inverse-primary: #4edea3;
+  --lp-color-secondary: #855300;
+  --lp-color-on-secondary: #ffffff;
+  --lp-color-secondary-container: #fea619;
+  --lp-color-on-secondary-container: #684000;
+  --lp-color-tertiary: #006591;
+  --lp-color-on-tertiary: #ffffff;
+  --lp-color-tertiary-container: #23acf1;
+  --lp-color-on-tertiary-container: #003d59;
+  --lp-color-error: #ba1a1a;
+  --lp-color-on-error: #ffffff;
+  --lp-color-error-container: #ffdad6;
+  --lp-color-on-error-container: #93000a;
+  --lp-color-background: #f9f9ff;
+  --lp-color-on-background: #111c2d;
+  --lp-color-surface-variant: #d8e3fb;
+
+  --lp-font-sans: Rubik, Arial, Helvetica, sans-serif;
+  --lp-font-mono: "Space Grotesk", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --lp-text-display-hero: 48px;
+  --lp-text-headline-lg: 32px;
+  --lp-text-headline-lg-mobile: 24px;
+  --lp-text-body-md: 16px;
+  --lp-text-label-caps: 12px;
+  --lp-text-quest-description: 14px;
+
+  --lp-leading-display-hero: 1.1;
+  --lp-leading-headline: 1.2;
+  --lp-leading-body: 1.5;
+  --lp-leading-label: 1;
+  --lp-leading-quest: 1.4;
+
+  --lp-tracking-display-hero: -0.02em;
+  --lp-tracking-label-caps: 0.1em;
+
+  --lp-space-unit: 4px;
+  --lp-gutter: 16px;
+  --lp-margin-mobile: 20px;
+  --lp-margin-desktop: 40px;
+  --lp-card-padding: 24px;
+
+  --lp-radius-sm: 0.25rem;
+  --lp-radius-default: 0.5rem;
+  --lp-radius-md: 0.75rem;
+  --lp-radius-lg: 1rem;
+  --lp-radius-xl: 1.5rem;
+  --lp-radius-full: 9999px;
+
+  --lp-border-heavy: 3px;
+  --lp-shadow-level-2: 4px 4px 0 var(--lp-color-ink);
+  --lp-shadow-level-3: 8px 8px 0 var(--lp-color-ink);
+  --lp-shadow-level-4: 12px 12px 0 var(--lp-color-ink);
+
+  --background: var(--lp-color-background);
+  --foreground: var(--lp-color-on-background);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --color-lp-surface: var(--lp-color-surface);
+  --color-lp-surface-dim: var(--lp-color-surface-dim);
+  --color-lp-surface-container: var(--lp-color-surface-container);
+  --color-lp-surface-container-high: var(--lp-color-surface-container-high);
+  --color-lp-on-surface: var(--lp-color-on-surface);
+  --color-lp-on-surface-variant: var(--lp-color-on-surface-variant);
+  --color-lp-ink: var(--lp-color-ink);
+  --color-lp-primary: var(--lp-color-primary);
+  --color-lp-primary-container: var(--lp-color-primary-container);
+  --color-lp-secondary: var(--lp-color-secondary);
+  --color-lp-secondary-container: var(--lp-color-secondary-container);
+  --color-lp-tertiary: var(--lp-color-tertiary);
+  --color-lp-tertiary-container: var(--lp-color-tertiary-container);
+  --color-lp-outline: var(--lp-color-outline);
+  --color-lp-outline-variant: var(--lp-color-outline-variant);
+  --font-sans: var(--lp-font-sans);
+  --font-mono: var(--lp-font-mono);
+  --text-display-hero: var(--lp-text-display-hero);
+  --text-headline-lg: var(--lp-text-headline-lg);
+  --text-headline-lg-mobile: var(--lp-text-headline-lg-mobile);
+  --text-body-md: var(--lp-text-body-md);
+  --text-label-caps: var(--lp-text-label-caps);
+  --text-quest-description: var(--lp-text-quest-description);
+  --radius-lp-sm: var(--lp-radius-sm);
+  --radius-lp: var(--lp-radius-default);
+  --radius-lp-md: var(--lp-radius-md);
+  --radius-lp-lg: var(--lp-radius-lg);
+  --radius-lp-xl: var(--lp-radius-xl);
+  --shadow-lp-level-2: var(--lp-shadow-level-2);
+  --shadow-lp-level-3: var(--lp-shadow-level-3);
+  --shadow-lp-level-4: var(--lp-shadow-level-4);
 }
 
 * {
@@ -25,5 +127,5 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--lp-font-sans);
 }
