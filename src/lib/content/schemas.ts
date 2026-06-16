@@ -1,0 +1,191 @@
+import { z } from "zod";
+
+export const slugSchema = z
+  .string()
+  .min(1)
+  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use kebab-case slugs.");
+
+export const dateSchema = z.preprocess((value) => {
+  if (value instanceof Date) {
+    return value.toISOString().slice(0, 10);
+  }
+
+  return value;
+}, z.string().regex(/^\d{4}-\d{2}-\d{2}$/));
+export const monthSchema = z.string().regex(/^\d{4}-\d{2}$/);
+
+export const linkSchema = z.object({
+  label: z.string().min(1),
+  href: z.string().min(1),
+});
+
+export const publicationStatusSchema = z.enum(["draft", "published"]);
+export const zoneStatusSchema = z.enum(["available", "current", "locked"]);
+export const skillStatusSchema = z.enum(["available", "current", "learning", "completed"]);
+export const questStatusSchema = z.enum(["planned", "in-progress", "paused", "completed"]);
+
+export const itemArtifactSchema = z.object({
+  type: z.enum(["demo", "source", "screenshot", "video", "write-up"]),
+  label: z.string().min(1),
+  href: z.string().min(1),
+});
+
+export const itemProofSchema = z.object({
+  motivation: z.string().min(1),
+  learned: z.string().min(1),
+  mattered: z.string().min(1),
+});
+
+export const itemFrontmatterSchema = z.object({
+  slug: slugSchema,
+  title: z.string().min(1),
+  status: publicationStatusSchema,
+  placeholder: z.boolean(),
+  summary: z.string().min(1),
+  zone: slugSchema,
+  skills: z.array(slugSchema).min(1),
+  artifact: itemArtifactSchema,
+  proof: itemProofSchema,
+  links: z.array(linkSchema).default([]),
+});
+
+export const fieldNoteFrontmatterSchema = z.object({
+  slug: slugSchema,
+  title: z.string().min(1),
+  status: publicationStatusSchema,
+  placeholder: z.boolean(),
+  summary: z.string().min(1),
+  date: dateSchema,
+  topics: z.array(z.string().min(1)).default([]),
+});
+
+export const zoneSchema = z.object({
+  slug: slugSchema,
+  title: z.string().min(1),
+  plainTitle: z.string().min(1),
+  status: zoneStatusSchema,
+  summary: z.string().min(1),
+  surface: z.enum(["home", "work", "experience", "skills", "quest-log", "writing", "contact"]),
+  order: z.number().int().nonnegative(),
+  placeholder: z.boolean(),
+  links: z
+    .object({
+      item: slugSchema.optional(),
+      quest: slugSchema.optional(),
+      experience: slugSchema.optional(),
+      fieldNote: slugSchema.optional(),
+    })
+    .default({}),
+});
+
+export const referenceSchema = z
+  .object({
+    items: z.array(slugSchema).default([]),
+    zones: z.array(slugSchema).default([]),
+    quests: z.array(slugSchema).default([]),
+    experiences: z.array(slugSchema).default([]),
+    fieldNotes: z.array(slugSchema).default([]),
+    skills: z.array(slugSchema).default([]),
+  })
+  .default({
+    items: [],
+    zones: [],
+    quests: [],
+    experiences: [],
+    fieldNotes: [],
+    skills: [],
+  });
+
+export const skillNodeSchema = z.object({
+  slug: slugSchema,
+  title: z.string().min(1),
+  status: skillStatusSchema,
+  summary: z.string().min(1),
+  references: referenceSchema,
+});
+
+export const skillGroupSchema = z.object({
+  slug: slugSchema,
+  title: z.string().min(1),
+  summary: z.string().min(1),
+  order: z.number().int().nonnegative(),
+  placeholder: z.boolean(),
+  skills: z.array(skillNodeSchema).min(1),
+});
+
+export const currentQuestSchema = z.object({
+  slug: slugSchema,
+  title: z.string().min(1),
+  status: questStatusSchema,
+  placeholder: z.boolean(),
+  summary: z.string().min(1),
+  startedOn: dateSchema,
+  focus: z.array(z.enum(["building", "writing", "learning", "experimenting"])).min(1),
+  links: z.array(linkSchema).default([]),
+  references: referenceSchema,
+});
+
+export const professionalMilestoneSchema = z.object({
+  slug: slugSchema,
+  title: z.string().min(1),
+  status: publicationStatusSchema,
+  placeholder: z.boolean(),
+  summary: z.string().min(1),
+  proof: z.string().min(1),
+});
+
+export const experiencePhaseSchema = z.object({
+  slug: slugSchema,
+  title: z.string().min(1),
+  plainTitle: z.string().min(1),
+  status: publicationStatusSchema,
+  placeholder: z.boolean(),
+  dateRange: z.object({
+    start: monthSchema,
+    end: monthSchema.optional(),
+  }),
+  summary: z.string().min(1),
+  milestones: z.array(professionalMilestoneSchema).min(1),
+});
+
+export const statusHudSchema = z.object({
+  placeholder: z.boolean(),
+  updatedOn: dateSchema,
+  building: z.object({
+    label: z.string().min(1),
+    value: z.string().min(1),
+    quest: slugSchema.optional(),
+  }),
+  writing: z.object({
+    label: z.string().min(1),
+    value: z.string().min(1),
+    fieldNote: slugSchema.optional(),
+  }),
+  learning: z.object({
+    label: z.string().min(1),
+    value: z.string().min(1),
+    skills: z.array(slugSchema).default([]),
+  }),
+});
+
+export const itemDocumentSchema = itemFrontmatterSchema.extend({
+  body: z.string().min(1),
+});
+
+export const fieldNoteDocumentSchema = fieldNoteFrontmatterSchema.extend({
+  body: z.string().min(1),
+});
+
+export type ItemDocument = z.infer<typeof itemDocumentSchema>;
+export type FieldNoteDocument = z.infer<typeof fieldNoteDocumentSchema>;
+export type Zone = z.infer<typeof zoneSchema>;
+export type SkillGroup = z.infer<typeof skillGroupSchema>;
+export type CurrentQuest = z.infer<typeof currentQuestSchema>;
+export type ExperiencePhase = z.infer<typeof experiencePhaseSchema>;
+export type StatusHud = z.infer<typeof statusHudSchema>;
+
+export type ZoneInput = z.input<typeof zoneSchema>;
+export type SkillGroupInput = z.input<typeof skillGroupSchema>;
+export type CurrentQuestInput = z.input<typeof currentQuestSchema>;
+export type ExperiencePhaseInput = z.input<typeof experiencePhaseSchema>;
+export type StatusHudInput = z.input<typeof statusHudSchema>;
