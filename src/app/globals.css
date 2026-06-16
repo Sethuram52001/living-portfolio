@@ -87,6 +87,8 @@
   --color-lp-surface-container-high: var(--lp-color-surface-container-high);
   --color-lp-on-surface: var(--lp-color-on-surface);
   --color-lp-on-surface-variant: var(--lp-color-on-surface-variant);
+  --color-lp-inverse-surface: var(--lp-color-inverse-surface);
+  --color-lp-inverse-on-surface: var(--lp-color-inverse-on-surface);
   --color-lp-ink: var(--lp-color-ink);
   --color-lp-primary: var(--lp-color-primary);
   --color-lp-primary-container: var(--lp-color-primary-container);
