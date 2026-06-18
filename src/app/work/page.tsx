@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { SurfacePlaceholder } from "@/components/surface-placeholder";
+import { WorkInventory } from "@/components/work/work-inventory";
 import { getRequiredRouteByHref } from "@/config/site";
+import { loadItems } from "@/lib/content/loaders";
 import { createPageMetadata } from "@/lib/site/metadata";
 
 const route = getRequiredRouteByHref("/work");
@@ -12,5 +13,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function WorkPage() {
-  return <SurfacePlaceholder route={route} />;
+  const items = loadItems();
+
+  return <WorkInventory items={items} />;
 }
