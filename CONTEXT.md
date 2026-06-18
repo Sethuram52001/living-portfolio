@@ -40,9 +40,9 @@ _Avoid_: Theme-only labels
 A mapped career area or phase, such as Algorithm Forest, Frontend Arcane, Systems Dungeon, or Writing Harbor.
 _Avoid_: Section, category, page group
 
-**Current Camp**:
+**Active Quests**:
 The part of the World Map that shows what Sethuram is actively building, writing, or learning now.
-_Avoid_: Status section, now page
+_Avoid_: Current Camp, status section, now page
 
 **Inventory**:
 The project collection surface where projects are treated as inspectable items.

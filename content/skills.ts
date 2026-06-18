@@ -70,7 +70,7 @@ export const skillGroups = [
         summary: "Placeholder algorithms skill node.",
         references: {
           items: ["path-visualizer"],
-          zones: ["algorithm-forest"],
+          zones: ["project-archive"],
         },
       },
     ],

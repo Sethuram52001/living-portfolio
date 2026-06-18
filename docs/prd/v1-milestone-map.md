@@ -82,7 +82,7 @@ This map divides v1 into small, reviewable milestones. Each milestone should be 
 - Living portfolio premise.
 - Backend-first role signal.
 - World Map zones as clickable career/content areas.
-- Current Camp or Status HUD preview.
+- Active Quests or Status HUD preview.
 - Plain-language pairing for playful labels.
 - Light Motion transitions.
 
@@ -226,4 +226,3 @@ This map divides v1 into small, reviewable milestones. Each milestone should be 
 - Rich map pan/zoom or game-like movement.
 - Large external media pipeline.
 - Advanced personalization or dynamic activity.
-
