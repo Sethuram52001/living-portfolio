@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { SurfacePlaceholder } from "@/components/surface-placeholder";
+import { ExperienceTimeline } from "@/components/experience/experience-timeline";
 import { getRequiredRouteByHref } from "@/config/site";
+import { loadExperiencePhases } from "@/lib/content/loaders";
 import { createPageMetadata } from "@/lib/site/metadata";
 
 const route = getRequiredRouteByHref("/experience");
@@ -12,5 +13,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function ExperiencePage() {
-  return <SurfacePlaceholder route={route} />;
+  const phases = loadExperiencePhases();
+
+  return <ExperienceTimeline phases={phases} />;
 }
