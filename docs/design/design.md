@@ -10,6 +10,18 @@ This file is the design source of truth for `living-portfolio`. Update it when a
 | Google Stitch `design.md` | This file | Design-system brief, tokens, style language | Integrated |
 | Desktop screenshot | `docs/design/screens/home-world-map-desktop.png` | Visual QA for desktop Home / World Map direction | Approved reference |
 | Mobile screenshot | `docs/design/screens/home-world-map-mobile.png` | Visual QA for mobile Home / World Map direction | Approved reference |
+| Desktop screenshot | `docs/design/screens/projects-inventory-desktop.png` | Visual QA for desktop Work / Inventory direction | Approved reference |
+| Mobile screenshot | `docs/design/screens/projects-inventory-mobile.png` | Visual QA for mobile Work / Inventory direction | Approved reference |
+| Desktop screenshot | `docs/design/screens/experience-timeline-desktop.png` | Visual QA for desktop Experience / Timeline direction | Approved reference |
+| Mobile screenshot | `docs/design/screens/experience-timeline-mobile.png` | Visual QA for mobile Experience / Timeline direction | Approved reference |
+| Desktop screenshot | `docs/design/screens/active-quests-desktop.png` | Visual QA for desktop Active Quests direction | Approved reference, light page surface overrides dark export background |
+| Mobile screenshot | `docs/design/screens/active-quests-mobile.png` | Visual QA for mobile Active Quests direction | Approved reference, light page surface overrides dark export background |
+| Desktop screenshot | `docs/design/screens/skills-tree-desktop.png` | Visual QA for desktop Skills / Mastery Tree direction | Approved reference |
+| Mobile screenshot | `docs/design/screens/skills-tree-mobile.png` | Visual QA for mobile Skills / Mastery Tree direction | Approved reference |
+| Desktop screenshot | `docs/design/screens/writing-harbour-desktop.png` | Future Writing Harbour direction | Future reference |
+| Mobile screenshot | `docs/design/screens/writing-harbour-mobile.png` | Future Writing Harbour direction | Future reference |
+| Desktop screenshot | `docs/design/screens/contact-guild-desktop.png` | Future Contact / Social Guild direction | Future reference |
+| Mobile screenshot | `docs/design/screens/contact-guild-mobile.png` | Future Contact / Social Guild direction | Future reference |
 
 ## Design Source Rules
 
@@ -19,6 +31,9 @@ This file is the design source of truth for `living-portfolio`. Update it when a
 - If Figma and Stitch conflict, Figma controls layout and Stitch controls style language unless the user says otherwise.
 - Record any approved deviation here before implementation continues.
 - Do not copy generated Stitch code directly into production components.
+- Current approved deviation: Active Quests keeps the portfolio's light/grid surface; the dark background in the exported reference is not authoritative.
+- Current approved deviation: Design references are inspiration, not one-to-one copy; avoid game-specific labels such as levels, XP, decorative nav initials, or side filter panels when they reduce recruiter clarity.
+- Current approved deviation: Prefer straight, horizontally aligned cards over rotated cards unless the rotation serves a specific interaction or layout purpose.
 
 ## Recruiter-Safe Adaptation
 
