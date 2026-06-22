@@ -26,6 +26,7 @@ The technical foundation should support a memorable living portfolio while stayi
 ## Content Format Requirements
 
 - Field Notes and detailed Item write-ups should be authorable as MDX.
+- Field Note rendering starts with a limited Markdown-compatible subset of MDX body content: paragraphs, headings, lists, links, and inline code. Rich MDX components, tables, code fences, and embedded media should be added only when the renderer is upgraded.
 - Zones, skills, Status HUD data, navigation, and lightweight Quest metadata should be typed structured content.
 - The content model should avoid manual database entry for v1.
 - The content model should be easy for agents and humans to update through normal commits.
