@@ -17,14 +17,11 @@ export function AppShell({ children }: AppShellProps) {
         Skip to content
       </a>
 
-      <header className="sticky top-0 z-10 border-b-[3px] border-lp-ink bg-lp-surface/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-4 lg:px-10">
-          <Link href="/" className="group inline-flex flex-col gap-1">
-            <span className="text-lg font-black leading-none text-lp-primary lg:text-xl">
-              {siteConfig.name}
-            </span>
-            <span className="font-mono text-xs font-bold uppercase leading-none text-lp-on-surface-variant">
-              Living Portfolio
+      <header className="sticky top-0 z-10 border-b-[6px] border-lp-ink bg-lp-surface/95 backdrop-blur">
+        <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-5 px-5 py-3 lg:px-10">
+          <Link href="/" className="group inline-flex items-center gap-3">
+            <span className="text-2xl font-black leading-none text-lp-primary lg:text-3xl">
+              Sethuram
             </span>
           </Link>
 
@@ -32,17 +29,20 @@ export function AppShell({ children }: AppShellProps) {
         </div>
       </header>
 
-      <main id="main-content" className="mx-auto w-full max-w-6xl px-5 py-10 lg:px-10 lg:py-14">
+      <main
+        id="main-content"
+        className="mx-auto w-full max-w-[1280px] px-5 py-10 lg:px-10 lg:py-14"
+      >
         {children}
       </main>
 
-      <footer className="border-t-[3px] border-lp-ink bg-lp-inverse-surface px-5 py-8 text-lp-inverse-on-surface lg:px-10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+      <footer className="border-t-[6px] border-lp-ink bg-lp-inverse-surface px-5 py-8 text-lp-inverse-on-surface lg:px-10">
+        <div className="mx-auto flex max-w-[1280px] flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="font-mono text-xs font-bold uppercase">Direct path</p>
+            <p className="font-mono text-xs font-bold uppercase">Living Portfolio</p>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-lp-inverse-on-surface/80">
-              Recruiter-safe navigation is ready. Richer map, inventory, and skill
-              surfaces arrive in later milestones.
+              Recruiter-safe exits stay visible while the portfolio keeps its map,
+              inventory, timeline, quest, and skill surfaces.
             </p>
           </div>
 

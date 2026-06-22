@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { SurfacePlaceholder } from "@/components/surface-placeholder";
+import { WritingHarbour } from "@/components/writing/writing-harbour";
 import { getRequiredRouteByHref } from "@/config/site";
+import { loadFieldNotes } from "@/lib/content/loaders";
 import { createPageMetadata } from "@/lib/site/metadata";
 
 const route = getRequiredRouteByHref("/writing");
@@ -12,5 +13,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function WritingPage() {
-  return <SurfacePlaceholder route={route} />;
+  const notes = loadFieldNotes();
+
+  return <WritingHarbour notes={notes} />;
 }

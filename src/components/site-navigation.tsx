@@ -18,7 +18,7 @@ export function SiteNavigation({ routes, variant }: SiteNavigationProps) {
       className={
         variant === "desktop"
           ? "hidden items-center gap-2 lg:flex"
-          : "fixed inset-x-0 bottom-0 z-20 border-t-[3px] border-lp-ink bg-lp-surface-container px-3 py-2 shadow-[0_-4px_0_var(--lp-color-ink)] lg:hidden"
+          : "fixed inset-x-0 bottom-0 z-20 border-t-[6px] border-lp-ink bg-lp-surface px-3 py-2 shadow-[0_-4px_0_var(--lp-color-ink)] lg:hidden"
       }
     >
       <ul
@@ -52,7 +52,7 @@ export function SiteNavigation({ routes, variant }: SiteNavigationProps) {
                       ].join(" ")
                 }
               >
-                {route.label}
+                <span>{route.label}</span>
               </Link>
             </li>
           );

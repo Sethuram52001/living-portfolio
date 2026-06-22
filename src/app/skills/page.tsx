@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { SurfacePlaceholder } from "@/components/surface-placeholder";
+import { SkillTree } from "@/components/skills/skill-tree";
 import { getRequiredRouteByHref } from "@/config/site";
+import { loadSkillGroups } from "@/lib/content/loaders";
 import { createPageMetadata } from "@/lib/site/metadata";
 
 const route = getRequiredRouteByHref("/skills");
@@ -12,5 +13,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function SkillsPage() {
-  return <SurfacePlaceholder route={route} />;
+  const groups = loadSkillGroups();
+
+  return <SkillTree groups={groups} />;
 }

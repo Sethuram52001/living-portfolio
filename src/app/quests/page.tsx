@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { SurfacePlaceholder } from "@/components/surface-placeholder";
+import { QuestLog } from "@/components/quests/quest-log";
 import { getRequiredRouteByHref } from "@/config/site";
+import { loadCurrentQuests, loadStatusHud } from "@/lib/content/loaders";
 import { createPageMetadata } from "@/lib/site/metadata";
 
 const route = getRequiredRouteByHref("/quests");
@@ -12,5 +13,8 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function QuestsPage() {
-  return <SurfacePlaceholder route={route} />;
+  const quests = loadCurrentQuests();
+  const status = loadStatusHud();
+
+  return <QuestLog quests={quests} status={status} />;
 }

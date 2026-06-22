@@ -29,21 +29,21 @@ export function ZoneNode({ zone }: ZoneNodeProps) {
         <Link
           href={zone.destination}
           className={[
-            "group block min-h-40 rounded-lp-lg border-[3px] border-lp-ink p-5 text-lp-on-surface shadow-lp-level-3 transition",
+            "group block min-h-44 rounded-lp-lg border-[3px] border-lp-ink p-5 text-lp-on-surface shadow-lp-level-3 transition",
             "hover:shadow-lp-level-2 focus:outline-none focus-visible:ring-4 focus-visible:ring-lp-secondary-container",
             toneClasses[zone.tone],
           ].join(" ")}
         >
-          <span className="font-mono text-xs font-bold uppercase text-lp-on-surface-variant">
+          <span className="font-mono text-xs font-black uppercase tracking-[0.12em] text-lp-on-surface-variant">
             {zone.plainTitle}
           </span>
-          <span className="mt-3 block text-2xl font-black leading-tight">
+          <span className="mt-3 block text-2xl font-black uppercase leading-tight lg:text-3xl">
             {zone.title}
           </span>
-          <span className="mt-3 block text-sm leading-6 text-lp-on-surface">
+          <span className="mt-3 block text-sm font-bold leading-6 text-lp-on-surface">
             {zone.summary}
           </span>
-          <span className="mt-5 inline-flex rounded-lp border-2 border-lp-ink bg-lp-surface-container-lowest px-3 py-2 text-sm font-black transition group-hover:bg-lp-on-surface group-hover:text-lp-surface">
+          <span className="mt-5 inline-flex rounded-lp border-2 border-lp-ink bg-lp-surface-container-lowest px-3 py-2 font-mono text-xs font-black uppercase tracking-[0.08em] transition group-hover:bg-lp-on-surface group-hover:text-lp-surface">
             {zone.destinationLabel}
           </span>
         </Link>

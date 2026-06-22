@@ -6,24 +6,27 @@ type ExperienceTimelineProps = {
 
 export function ExperienceTimeline({ phases }: ExperienceTimelineProps) {
   return (
-    <section className="grid gap-6">
-      <header className="rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-lowest p-6 shadow-lp-level-3 lg:p-10">
-        <p className="font-mono text-xs font-bold uppercase text-lp-secondary">
-          Production Systems
+    <section className="grid gap-10">
+      <header>
+        <p className="font-mono text-sm font-black uppercase tracking-[0.08em] text-lp-secondary">
+          Experience
         </p>
-        <h1 className="mt-4 text-4xl font-black leading-tight text-lp-on-surface lg:text-5xl">
-          Backend experience
+        <h1 className="mt-3 text-4xl font-black leading-tight text-lp-primary lg:text-6xl">
+          Career Timeline
         </h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-lp-on-surface-variant">
-          Career phases and Professional Milestones live here. The goal is to show
-          backend impact, reliability work, and product delivery without turning
-          the page into a pasted resume.
+        <p className="mt-4 max-w-3xl text-lg font-bold leading-8 text-lp-on-surface-variant">
+          A chronological path through backend experience, production systems,
+          and professional milestones completed so far.
         </p>
       </header>
 
-      <ol className="grid gap-6">
+      <ol className="relative grid gap-10 pl-8 before:absolute before:left-3 before:top-0 before:h-full before:w-1 before:bg-lp-ink lg:gap-12">
         {phases.map((phase) => (
-          <li key={phase.slug}>
+          <li key={phase.slug} className="relative">
+            <span
+              className="absolute -left-[31px] top-8 size-8 rounded-full border-[3px] border-lp-ink bg-lp-primary-container"
+              aria-hidden="true"
+            />
             <ExperiencePhaseCard phase={phase} />
           </li>
         ))}
@@ -34,31 +37,30 @@ export function ExperienceTimeline({ phases }: ExperienceTimelineProps) {
 
 function ExperiencePhaseCard({ phase }: { phase: ExperiencePhase }) {
   return (
-    <article className="grid gap-5 rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container p-5 shadow-lp-level-3 lg:grid-cols-[260px_minmax(0,1fr)] lg:p-6">
+    <article className="grid gap-5 rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-lowest p-5 shadow-lp-level-4 lg:p-7">
       <div>
-        <p className="font-mono text-xs font-bold uppercase text-lp-secondary">
-          {phase.plainTitle}
-        </p>
-        <h2 className="mt-3 text-2xl font-black leading-tight text-lp-on-surface">
-          {phase.title}
-        </h2>
-        <p className="mt-3 font-mono text-sm font-bold text-lp-on-surface-variant">
-          {formatDateRange(phase.dateRange)}
-        </p>
-        <span className="mt-4 inline-flex rounded-lp border-2 border-lp-ink bg-lp-surface-container-lowest px-3 py-1 font-mono text-xs font-bold uppercase text-lp-on-surface">
-          {phase.placeholder ? "Placeholder" : phase.status}
-        </span>
-      </div>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <span className="inline-flex rounded-lp border-[3px] border-lp-ink bg-lp-secondary-container px-3 py-1 font-mono text-xs font-black uppercase tracking-[0.1em] text-lp-on-surface shadow-lp-level-2">
+              Career Phase
+            </span>
+            <h2 className="mt-4 text-3xl font-black leading-tight text-lp-on-surface lg:text-5xl">
+              {phase.title}
+            </h2>
+          </div>
+          <span className="rounded-full border-[3px] border-lp-ink bg-lp-surface-container-high px-4 py-2 font-mono text-sm font-black text-lp-on-surface-variant">
+            {formatDateRange(phase.dateRange)}
+          </span>
+        </div>
 
-      <div>
-        <p className="text-base leading-7 text-lp-on-surface-variant">
+        <p className="mt-5 text-lg font-bold leading-8 text-lp-on-surface-variant">
           {phase.summary}
         </p>
-        <div className="mt-5 grid gap-4">
+        <div className="mt-6 grid gap-4">
           {phase.milestones.map((milestone) => (
             <section
               key={milestone.slug}
-              className="rounded-lp-lg border-[3px] border-lp-ink bg-lp-surface-container-lowest p-5"
+              className="rounded-lp-lg border-2 border-lp-outline-variant bg-lp-surface-container p-5"
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h3 className="text-xl font-black leading-tight text-lp-on-surface">
@@ -68,14 +70,14 @@ function ExperiencePhaseCard({ phase }: { phase: ExperiencePhase }) {
                   {milestone.placeholder ? "Placeholder" : milestone.status}
                 </span>
               </div>
-              <p className="mt-3 text-sm leading-6 text-lp-on-surface-variant">
+              <p className="mt-3 text-sm font-bold leading-6 text-lp-on-surface-variant">
                 {milestone.summary}
               </p>
-              <div className="mt-4 rounded-lp border-2 border-lp-outline-variant bg-lp-surface-container p-4">
-                <p className="font-mono text-xs font-bold uppercase text-lp-secondary">
+              <div className="mt-4 rounded-lp border-2 border-lp-outline-variant bg-lp-surface-container-lowest p-4">
+                <p className="font-mono text-xs font-black uppercase tracking-[0.1em] text-lp-secondary">
                   Proof
                 </p>
-                <p className="mt-2 text-sm leading-6 text-lp-on-surface">
+                <p className="mt-2 text-sm font-bold leading-6 text-lp-on-surface">
                   {milestone.proof}
                 </p>
               </div>

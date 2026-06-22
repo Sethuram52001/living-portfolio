@@ -83,8 +83,13 @@
   --color-foreground: var(--foreground);
   --color-lp-surface: var(--lp-color-surface);
   --color-lp-surface-dim: var(--lp-color-surface-dim);
+  --color-lp-surface-bright: var(--lp-color-surface-bright);
+  --color-lp-surface-container-lowest: var(--lp-color-surface-container-lowest);
+  --color-lp-surface-container-low: var(--lp-color-surface-container-low);
   --color-lp-surface-container: var(--lp-color-surface-container);
   --color-lp-surface-container-high: var(--lp-color-surface-container-high);
+  --color-lp-surface-container-highest: var(--lp-color-surface-container-highest);
+  --color-lp-surface-variant: var(--lp-color-surface-variant);
   --color-lp-on-surface: var(--lp-color-on-surface);
   --color-lp-on-surface-variant: var(--lp-color-on-surface-variant);
   --color-lp-inverse-surface: var(--lp-color-inverse-surface);
@@ -92,6 +97,7 @@
   --color-lp-ink: var(--lp-color-ink);
   --color-lp-primary: var(--lp-color-primary);
   --color-lp-primary-container: var(--lp-color-primary-container);
+  --color-lp-inverse-primary: var(--lp-color-inverse-primary);
   --color-lp-secondary: var(--lp-color-secondary);
   --color-lp-secondary-container: var(--lp-color-secondary-container);
   --color-lp-tertiary: var(--lp-color-tertiary);
@@ -127,7 +133,24 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-  background: var(--background);
+  background:
+    linear-gradient(rgba(207, 218, 242, 0.32) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(207, 218, 242, 0.32) 1px, transparent 1px),
+    var(--background);
+  background-size: 40px 40px;
   color: var(--foreground);
   font-family: var(--lp-font-sans);
+}
+
+.lp-grid-surface {
+  background:
+    linear-gradient(rgba(207, 218, 242, 0.38) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(207, 218, 242, 0.38) 1px, transparent 1px),
+    var(--lp-color-surface);
+  background-size: 40px 40px;
+}
+
+.lp-dot-surface {
+  background-image: radial-gradient(circle, rgba(207, 218, 242, 0.95) 2px, transparent 2px);
+  background-size: 40px 40px;
 }
