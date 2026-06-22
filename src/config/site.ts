@@ -40,8 +40,8 @@ export const siteConfig = {
       eyebrow: "Inventory",
       title: "Work",
       description:
-        "Substantial projects will live here as inspectable Items with motivation, visible artifacts, and what mattered.",
-      status: "Inventory surface placeholder for Milestone 5.",
+        "Substantial work lives here as inspectable inventory with motivation, visible artifacts, and what mattered.",
+      status: "Inventory-style Work surface is active.",
     },
     {
       href: "/experience",
@@ -49,8 +49,8 @@ export const siteConfig = {
       eyebrow: "Milestones",
       title: "Experience",
       description:
-        "Professional backend experience and career phases will become readable milestones here.",
-      status: "Experience surface placeholder for Milestone 6.",
+        "Professional backend experience and career phases are presented as readable timeline milestones.",
+      status: "Career Timeline surface is active.",
     },
     {
       href: "/skills",
@@ -58,17 +58,17 @@ export const siteConfig = {
       eyebrow: "Skill Tree",
       title: "Skills",
       description:
-        "Backend, systems, AI, frontend breadth, writing, and product-thinking skills will be grouped here.",
-      status: "Skill Tree surface placeholder for Milestone 8.",
+        "Backend, systems, AI, frontend breadth, writing, and product-thinking skills are grouped here.",
+      status: "Mastery Tree surface is active.",
     },
     {
       href: "/quests",
-      label: "Quest Log",
+      label: "Active Quests",
       eyebrow: "Current Work",
-      title: "Quest Log",
+      title: "Active Quests",
       description:
-        "Current building, writing, learning, and experiments will appear here without implying a fixed update cadence.",
-      status: "Quest Log surface placeholder for Milestone 7.",
+        "Current building, writing, learning, and experiments appear here without implying a fixed update cadence.",
+      status: "Active Quests surface is active.",
     },
     {
       href: "/writing",
@@ -76,8 +76,8 @@ export const siteConfig = {
       eyebrow: "Field Notes",
       title: "Writing",
       description:
-        "Field Notes, essays, dev logs, and learning reflections will be readable and shareable here.",
-      status: "Writing surface placeholder for Milestone 9.",
+        "Field Notes, essays, dev logs, and learning reflections from Sethuram's building process.",
+      status: "Writing surface is active.",
     },
     {
       href: "/contact",
@@ -86,7 +86,7 @@ export const siteConfig = {
       title: "Contact",
       description:
         "Resume, GitHub, LinkedIn, and email links will stay easy to find here.",
-      status: "Contact and social surface placeholder for Milestone 10.",
+      status: "Contact and social surface is active.",
     },
   ] satisfies SiteRoute[],
   externalLinks: [
