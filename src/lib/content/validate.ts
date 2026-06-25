@@ -171,22 +171,12 @@ export function validateAllContent() {
         );
       }
 
-      for (const milestone of phase.milestones) {
-        if (milestone.placeholder && milestone.status !== "draft") {
-          addIssue(
-            issues,
-            "experiencePhases",
-            `${phase.slug}/${milestone.slug} is placeholder content but is not draft.`,
-          );
-        }
-
-        if (!isPlaceholderDraft(milestone.status, milestone.placeholder) && milestone.proof.toLowerCase().includes("placeholder")) {
-          addIssue(
-            issues,
-            "experiencePhases",
-            `${phase.slug}/${milestone.slug} has placeholder proof text.`,
-          );
-        }
+      if (!isPlaceholderDraft(phase.status, phase.placeholder) && phase.summary.toLowerCase().includes("placeholder")) {
+        addIssue(
+          issues,
+          "experiencePhases",
+          `${phase.slug} has placeholder summary text.`,
+        );
       }
     }
 
@@ -213,4 +203,3 @@ export function validateAllContent() {
     throw error;
   }
 }
-

@@ -57,6 +57,8 @@ export const fieldNoteFrontmatterSchema = z.object({
   summary: z.string().min(1),
   date: dateSchema,
   topics: z.array(z.string().min(1)).default([]),
+  externalUrl: z.string().min(1).optional(),
+  previewImage: z.string().min(1).optional(),
 });
 
 export const zoneSchema = z.object({
@@ -125,19 +127,10 @@ export const currentQuestSchema = z.object({
   references: referenceSchema,
 });
 
-export const professionalMilestoneSchema = z.object({
-  slug: slugSchema,
-  title: z.string().min(1),
-  status: publicationStatusSchema,
-  placeholder: z.boolean(),
-  summary: z.string().min(1),
-  proof: z.string().min(1),
-});
-
 export const experiencePhaseSchema = z.object({
   slug: slugSchema,
-  title: z.string().min(1),
-  plainTitle: z.string().min(1),
+  company: z.string().min(1),
+  position: z.string().min(1),
   status: publicationStatusSchema,
   placeholder: z.boolean(),
   dateRange: z.object({
@@ -145,7 +138,8 @@ export const experiencePhaseSchema = z.object({
     end: monthSchema.optional(),
   }),
   summary: z.string().min(1),
-  milestones: z.array(professionalMilestoneSchema).min(1),
+  fieldNotes: z.array(z.string().min(1)).min(1),
+  keyTech: z.array(z.string().min(1)).min(1),
 });
 
 export const statusHudSchema = z.object({

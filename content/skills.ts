@@ -14,7 +14,7 @@ export const skillGroups = [
         status: "current",
         summary: "Placeholder backend systems skill node.",
         references: {
-          experiences: ["first-production-systems"],
+          experiences: ["zenstatement"],
           quests: ["ai-code-analysis-tool"],
         },
       },
@@ -33,7 +33,7 @@ export const skillGroups = [
         status: "learning",
         summary: "Placeholder distributed systems skill node.",
         references: {
-          experiences: ["first-production-systems"],
+          experiences: ["zenstatement"],
         },
       },
     ],

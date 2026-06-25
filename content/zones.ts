@@ -24,7 +24,7 @@ export const zones = [
     order: 2,
     placeholder: true,
     links: {
-      experience: "first-production-systems",
+      experience: "zenstatement",
     },
   },
   {
