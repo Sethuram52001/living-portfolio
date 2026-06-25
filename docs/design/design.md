@@ -12,8 +12,8 @@ This file is the design source of truth for `living-portfolio`. Update it when a
 | Mobile screenshot | `docs/design/screens/home-world-map-mobile.png` | Visual QA for mobile Home / World Map direction | Approved reference |
 | Desktop screenshot | `docs/design/screens/projects-inventory-desktop.png` | Visual QA for desktop Work / Inventory direction | Approved reference |
 | Mobile screenshot | `docs/design/screens/projects-inventory-mobile.png` | Visual QA for mobile Work / Inventory direction | Approved reference |
-| Desktop screenshot | `docs/design/screens/experience-timeline-desktop.png` | Visual QA for desktop Experience / Timeline direction | Approved reference |
-| Mobile screenshot | `docs/design/screens/experience-timeline-mobile.png` | Visual QA for mobile Experience / Timeline direction | Approved reference |
+| Desktop screenshot | `docs/design/screens/experience-timeline-desktop.png.png` | Visual QA for desktop Experience / Timeline direction | Approved reference |
+| Mobile screenshot | `docs/design/screens/experience-timeline-mobile.png.png` | Visual QA for mobile Experience / Timeline direction | Approved reference |
 | Desktop screenshot | `docs/design/screens/active-quests-desktop.png` | Visual QA for desktop Active Quests direction | Approved reference, light page surface overrides dark export background |
 | Mobile screenshot | `docs/design/screens/active-quests-mobile.png` | Visual QA for mobile Active Quests direction | Approved reference, light page surface overrides dark export background |
 | Desktop screenshot | `docs/design/screens/skills-tree-desktop.png` | Visual QA for desktop Skills / Mastery Tree direction | Approved reference |
@@ -34,6 +34,12 @@ This file is the design source of truth for `living-portfolio`. Update it when a
 - Current approved deviation: Active Quests keeps the portfolio's light/grid surface; the dark background in the exported reference is not authoritative.
 - Current approved deviation: Design references are inspiration, not one-to-one copy; avoid game-specific labels such as levels, XP, decorative nav initials, or side filter panels when they reduce recruiter clarity.
 - Current approved deviation: Prefer straight, horizontally aligned cards over rotated cards unless the rotation serves a specific interaction or layout purpose.
+- Current approved deviation: Work uses proof-oriented cards for every item, grouped by current work and completed projects; avoid decorative inventory slots or a separate featured-work sidebar unless it has a clear purpose.
+- Current approved deviation: Active Quests uses separate Building, Writing, and Learning lanes with a compact summary stat band instead of one mixed status panel.
+- Current approved deviation: Writing uses Medium-style article preview cards with image areas, summaries, and clear read actions; external article links can be added later while internal Field Note routes remain the fallback.
+- Current approved deviation: Contact follows the Social Guild reference structure but uses professional copy, practical contact exits, and a profile-image placeholder until a real photo is provided.
+- Current approved deviation: Experience follows the updated timeline reference: centered heading, grid-map background, left vertical rail with markers, and large horizontal role cards. Cards should use company, position, summary, Field Notes, and Key Tech rather than separate proof/milestone panels. Do not add a sidebar for this screen unless the design source changes again.
+- Current approved deviation: Work, Experience, and Active Quests should favor a shared portfolio-console rhythm: strong page hero, compact stats, one primary focus card, and smaller proof/activity cards. Avoid oversized decorative panels when they do not add meaning.
 
 ## Recruiter-Safe Adaptation
 
