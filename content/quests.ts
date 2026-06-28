@@ -11,8 +11,9 @@ export const currentQuests = [
     focus: ["building", "learning"],
     links: [],
     references: {
-      skills: ["ai-code-analysis", "backend-systems"],
+      skills: ["ai-tooling", "node-js", "typescript"],
       zones: ["current-camp"],
+      items: ["ai-code-analysis-tool"],
     },
   },
 ] satisfies CurrentQuestInput[];

@@ -7,152 +7,144 @@ type QuestLogProps = {
 };
 
 const statusLinks = {
-  building: "/quests",
+  building: "/work",
   writing: "/writing",
   learning: "/skills",
 } as const;
 
 export function QuestLog({ quests, status }: QuestLogProps) {
+  const activeQuests = quests.filter((quest) => quest.status === "in-progress");
+  const buildingQuests = activeQuests.filter((quest) =>
+    quest.focus.includes("building"),
+  );
+  const writingQuests = activeQuests.filter((quest) =>
+    quest.focus.includes("writing"),
+  );
+  const learningQuests = activeQuests.filter((quest) =>
+    quest.focus.includes("learning"),
+  );
+  const primaryQuest = activeQuests[0];
+
   return (
-    <section className="grid gap-8">
-      <header className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-start">
+    <section className="grid gap-10">
+      <header className="grid gap-6 rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-highest p-6 shadow-lp-level-4 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end lg:p-8">
         <div>
-          <p className="font-mono text-xs font-black uppercase tracking-[0.12em] text-lp-secondary">
+          <p className="font-mono text-sm font-black uppercase tracking-[0.08em] text-lp-secondary">
             Quest Log
           </p>
-          <h1 className="mt-4 text-5xl font-black leading-none text-lp-on-surface lg:text-7xl">
+          <h1 className="mt-3 text-5xl font-black uppercase leading-none text-lp-on-surface lg:text-7xl">
             Active Quests
           </h1>
           <p className="mt-5 max-w-3xl text-lg font-bold leading-8 text-lp-on-surface-variant">
-            Current building, writing, learning, and experiments live here. These are
-            active objectives, not a fixed update schedule.
+            Current building, writing, learning, and experiments live here. It is
+            a momentum page, not a promise that every thread updates on a schedule.
           </p>
         </div>
-        <div className="rounded-lp-lg border-[3px] border-lp-ink bg-lp-surface-container-highest p-5 shadow-lp-level-2">
-          <p className="text-5xl font-black text-lp-secondary-container">
-            {quests.length}
-          </p>
-          <p className="mt-2 font-mono text-sm font-black uppercase tracking-[0.12em] text-lp-on-surface-variant">
-            Active
-          </p>
-          <p className="text-xl font-black text-lp-on-surface">In progress</p>
-        </div>
+
+        <aside className="grid gap-3 rounded-lp-lg border-[3px] border-lp-ink bg-lp-surface-container-lowest p-5 shadow-lp-level-2">
+          <QuestStat label="Active" value={activeQuests.length.toString()} />
+          <QuestStat label="Building" value={buildingQuests.length.toString()} />
+          <QuestStat
+            label="Learning"
+            value={(learningQuests.length || status.learning.skills.length).toString()}
+          />
+        </aside>
       </header>
 
-      <StatusPanel status={status} />
+      {primaryQuest ? (
+        <PrimaryQuestCard quest={primaryQuest} />
+      ) : (
+        <EmptyActivityState message="No active quest is pinned right now." />
+      )}
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        {quests.map((quest) => (
-          <QuestCard key={quest.slug} quest={quest} />
-        ))}
-      </div>
+      <section className="grid gap-5">
+        <div className="border-b-[3px] border-lp-ink pb-4">
+          <p className="font-mono text-xs font-black uppercase tracking-[0.12em] text-lp-secondary">
+            Momentum lanes
+          </p>
+          <h2 className="mt-2 text-3xl font-black leading-tight text-lp-on-surface lg:text-4xl">
+            Building, writing, and learning
+          </h2>
+        </div>
+
+        <div className="grid gap-5 lg:grid-cols-3">
+          <MomentumLane
+            count={buildingQuests.length}
+            href={statusLinks.building}
+            label={status.building.label}
+            quests={buildingQuests}
+            tone="bg-lp-primary-container"
+            value={status.building.value}
+          />
+          <MomentumLane
+            count={writingQuests.length || (status.writing.value ? 1 : 0)}
+            href={statusLinks.writing}
+            label={status.writing.label}
+            quests={writingQuests}
+            tone="bg-lp-secondary-container"
+            value={status.writing.value}
+          />
+          <MomentumLane
+            count={learningQuests.length || status.learning.skills.length}
+            href={statusLinks.learning}
+            label={status.learning.label}
+            quests={learningQuests}
+            tone="bg-lp-tertiary-container"
+            value={status.learning.value}
+          />
+        </div>
+      </section>
     </section>
   );
 }
 
-function StatusPanel({ status }: { status: StatusHud }) {
-  const rows = [
-    { key: "building", label: status.building.label, value: status.building.value },
-    { key: "writing", label: status.writing.label, value: status.writing.value },
-    { key: "learning", label: status.learning.label, value: status.learning.value },
-  ] as const;
-
+function QuestStat({ label, value }: { label: string; value: string }) {
   return (
-    <aside className="rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-lowest p-5 text-lp-on-surface shadow-lp-level-3 lg:p-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <p className="font-mono text-xs font-black uppercase tracking-[0.12em] text-lp-secondary">
-            Current Status
-          </p>
-          <h2 className="mt-3 text-3xl font-black leading-tight">
-            What I am focused on now
-          </h2>
-        </div>
-        {status.placeholder ? (
-          <span className="rounded-lp border-2 border-lp-ink bg-lp-secondary-container px-3 py-1 font-mono text-xs font-black uppercase text-lp-on-surface">
-            Placeholder
-          </span>
-        ) : null}
-      </div>
-
-      <p className="mt-3 text-sm font-bold leading-6 text-lp-on-surface-variant">
-        Last updated: {status.updatedOn}
-      </p>
-
-      <dl className="mt-5 grid gap-3 lg:grid-cols-3">
-        {rows.map((row) => (
-          <div
-            key={row.key}
-            className="rounded-lp border-2 border-lp-outline-variant bg-lp-surface-container p-4"
-          >
-            <dt className="font-mono text-xs font-black uppercase tracking-[0.1em] text-lp-secondary">
-              {row.label}
-            </dt>
-            <dd className="mt-2 text-base font-bold leading-6">{row.value}</dd>
-            <Link
-              href={statusLinks[row.key]}
-              className="mt-3 inline-flex rounded-lp border-2 border-lp-ink bg-lp-surface-container-lowest px-3 py-2 font-mono text-xs font-black uppercase tracking-[0.08em] transition hover:bg-lp-primary-container"
-            >
-              View route
-            </Link>
-          </div>
-        ))}
-      </dl>
-    </aside>
+    <div className="flex items-center justify-between gap-4 border-b-2 border-lp-outline-variant pb-3 last:border-b-0 last:pb-0">
+      <span className="font-mono text-xs font-black uppercase tracking-[0.1em] text-lp-on-surface-variant">
+        {label}
+      </span>
+      <span className="text-2xl font-black text-lp-on-surface">{value}</span>
+    </div>
   );
 }
 
-function QuestCard({ quest }: { quest: CurrentQuest }) {
+function PrimaryQuestCard({ quest }: { quest: CurrentQuest }) {
   return (
     <article
       id={quest.slug}
-      className="overflow-hidden rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-lowest shadow-lp-level-3"
+      className="overflow-hidden rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-lowest shadow-lp-level-4"
     >
-      <div className="relative h-44 border-b-[3px] border-lp-ink bg-lp-inverse-surface">
-        <div className="absolute inset-6 rounded-lp-lg border-2 border-lp-inverse-on-surface/20 bg-[radial-gradient(circle_at_35%_35%,var(--lp-color-inverse-primary),transparent_28%),linear-gradient(135deg,rgba(35,172,241,0.35),rgba(17,28,45,0.2))]" />
-        <span className="absolute right-5 top-5 rounded-full border-[3px] border-lp-ink bg-lp-primary-container px-4 py-2 font-mono text-xs font-black uppercase tracking-[0.12em] text-lp-on-surface shadow-lp-level-2">
-          {quest.placeholder ? "Placeholder" : quest.status}
+      <div className="grid gap-6 border-b-[3px] border-lp-ink bg-lp-inverse-surface p-6 text-lp-inverse-on-surface lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:p-8">
+        <div>
+          <p className="font-mono text-xs font-black uppercase tracking-[0.12em] text-lp-inverse-primary">
+            Current focus
+          </p>
+          <h2 className="mt-3 text-4xl font-black leading-tight lg:text-6xl">
+            {quest.title}
+          </h2>
+        </div>
+        <span className="w-fit rounded-lp border-[3px] border-lp-inverse-on-surface bg-lp-secondary-container px-4 py-2 font-mono text-xs font-black uppercase tracking-[0.08em] text-lp-on-surface shadow-lp-level-2">
+          {quest.placeholder ? "Draft proof" : quest.status}
         </span>
       </div>
 
-      <div className="grid gap-5 p-5 lg:p-6">
+      <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:p-8">
         <div>
-          <p className="font-mono text-sm font-black uppercase tracking-[0.12em] text-lp-tertiary">
-            Active Quest
-          </p>
-          <h2 className="mt-4 text-3xl font-black leading-tight text-lp-on-surface">
-            {quest.title}
-          </h2>
-          <p className="mt-4 text-base font-bold leading-7 text-lp-on-surface-variant">
+          <p className="text-lg font-bold leading-8 text-lp-on-surface-variant">
             {quest.summary}
           </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {quest.focus.map((focus) => (
+              <span
+                key={focus}
+                className="rounded-lp border-2 border-lp-outline bg-lp-surface-container px-3 py-2 font-mono text-xs font-black uppercase text-lp-on-surface"
+              >
+                {focus}
+              </span>
+            ))}
+          </div>
         </div>
-
-        <dl className="grid gap-3 border-y-2 border-lp-outline-variant py-5 sm:grid-cols-2">
-          <div>
-            <dt className="font-mono text-xs font-black uppercase text-lp-on-surface-variant">
-              Outcome
-            </dt>
-            <dd className="mt-1 text-base font-black text-lp-secondary">
-              Buildable proof
-            </dd>
-          </div>
-          <div>
-            <dt className="font-mono text-xs font-black uppercase text-lp-on-surface-variant">
-              Focus
-            </dt>
-            <dd className="mt-2 flex flex-wrap gap-2">
-              {quest.focus.map((focus) => (
-                <span
-                  key={focus}
-                  className="rounded-lp border-2 border-lp-outline bg-lp-surface-container px-2 py-1 font-mono text-xs font-black uppercase text-lp-on-surface"
-                >
-                  {focus}
-                </span>
-              ))}
-            </dd>
-          </div>
-        </dl>
 
         <ReferenceSummary
           skills={quest.references.skills}
@@ -160,6 +152,81 @@ function QuestCard({ quest }: { quest: CurrentQuest }) {
         />
       </div>
     </article>
+  );
+}
+
+function MomentumLane({
+  count,
+  href,
+  label,
+  quests,
+  tone,
+  value,
+}: {
+  count: number;
+  href: string;
+  label: string;
+  quests: CurrentQuest[];
+  tone: string;
+  value: string;
+}) {
+  return (
+    <article className="grid overflow-hidden rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-lowest shadow-lp-level-3">
+      <div className={["border-b-[3px] border-lp-ink p-5", tone].join(" ")}>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="font-mono text-xs font-black uppercase tracking-[0.12em] text-lp-on-surface-variant">
+              {label}
+            </p>
+            <h3 className="mt-2 text-2xl font-black leading-tight text-lp-on-surface">
+              {value}
+            </h3>
+          </div>
+          <span className="grid size-12 shrink-0 place-items-center rounded-full border-[3px] border-lp-ink bg-lp-surface-container-lowest font-black text-lp-on-surface">
+            {count}
+          </span>
+        </div>
+      </div>
+
+      <div className="grid gap-4 p-5">
+        {quests.length > 0 ? (
+          quests.map((quest) => (
+            <Link
+              key={quest.slug}
+              href={`#${quest.slug}`}
+              className="rounded-lp border-2 border-lp-outline-variant bg-lp-surface-container p-4 transition hover:border-lp-ink"
+            >
+              <span className="font-black text-lp-on-surface">{quest.title}</span>
+              <span className="mt-2 block text-sm font-bold leading-6 text-lp-on-surface-variant">
+                {quest.summary}
+              </span>
+            </Link>
+          ))
+        ) : (
+          <p className="text-sm font-bold leading-6 text-lp-on-surface-variant">
+            No dedicated quest card yet. This lane is still represented through the
+            current status signal.
+          </p>
+        )}
+
+        <Link
+          href={href}
+          className="mt-auto inline-flex w-fit rounded-lp border-2 border-lp-ink bg-lp-surface-container-lowest px-3 py-2 font-mono text-xs font-black uppercase tracking-[0.08em] text-lp-on-surface transition hover:bg-lp-primary-container"
+        >
+          Open related page
+        </Link>
+      </div>
+    </article>
+  );
+}
+
+function EmptyActivityState({ message }: { message: string }) {
+  return (
+    <div className="rounded-lp-xl border-[3px] border-dashed border-lp-outline bg-lp-surface-container-lowest p-6 shadow-lp-level-2">
+      <p className="text-base font-bold leading-7 text-lp-on-surface-variant">
+        {message}
+      </p>
+    </div>
   );
 }
 
@@ -171,7 +238,7 @@ function ReferenceSummary({
   zones: string[];
 }) {
   return (
-    <div>
+    <div className="rounded-lp-lg border-[3px] border-lp-ink bg-lp-surface-container p-5">
       <p className="font-mono text-xs font-black uppercase tracking-[0.1em] text-lp-secondary">
         Connected proof
       </p>
