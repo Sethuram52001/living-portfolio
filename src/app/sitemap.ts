@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
-import { loadFieldNotes, loadItems } from "@/lib/content/loaders";
+import { loadItems } from "@/lib/content/loaders";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = siteConfig.routes.map((route) => ({
@@ -17,14 +17,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     }));
 
-  const fieldNoteRoutes = loadFieldNotes()
-    .filter((note) => note.status === "published" && !note.placeholder)
-    .map((note) => ({
-      url: new URL(`/writing/${note.slug}`, siteConfig.url).toString(),
-      lastModified: note.date,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }));
-
-  return [...staticRoutes, ...itemRoutes, ...fieldNoteRoutes];
+  return [...staticRoutes, ...itemRoutes];
 }
