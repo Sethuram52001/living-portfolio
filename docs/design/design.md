@@ -12,6 +12,9 @@ This file is the design source of truth for `living-portfolio`. Update it when a
 | Mobile screenshot | `docs/design/screens/home-world-map-mobile.png` | Visual QA for mobile Home / World Map direction | Approved reference |
 | Desktop screenshot | `docs/design/screens/projects-inventory-desktop.png` | Visual QA for desktop Work / Inventory direction | Approved reference |
 | Mobile screenshot | `docs/design/screens/projects-inventory-mobile.png` | Visual QA for mobile Work / Inventory direction | Approved reference |
+| Desktop screenshot | `docs/design/screens/project-inventory-desktop2.png` | Updated Work / Inventory and project-card direction | Approved reference, currently overlaps with detail composition |
+| Desktop screenshot | `docs/design/screens/project-details-desktop.png` | Visual QA for desktop Project Detail direction | Approved reference |
+| Mobile screenshot | `docs/design/screens/project-details-mobile.png` | Visual QA for mobile Project Detail direction | Approved reference |
 | Desktop screenshot | `docs/design/screens/experience-timeline-desktop.png.png` | Visual QA for desktop Experience / Timeline direction | Approved reference |
 | Mobile screenshot | `docs/design/screens/experience-timeline-mobile.png.png` | Visual QA for mobile Experience / Timeline direction | Approved reference |
 | Desktop screenshot | `docs/design/screens/active-quests-desktop.png` | Visual QA for desktop Active Quests direction | Approved reference, light page surface overrides dark export background |
@@ -35,6 +38,7 @@ This file is the design source of truth for `living-portfolio`. Update it when a
 - Current approved deviation: Design references are inspiration, not one-to-one copy; avoid game-specific labels such as levels, XP, decorative nav initials, or side filter panels when they reduce recruiter clarity.
 - Current approved deviation: Prefer straight, horizontally aligned cards over rotated cards unless the rotation serves a specific interaction or layout purpose.
 - Current approved deviation: Work uses proof-oriented cards for every item, grouped by current work and completed projects; avoid decorative inventory slots or a separate featured-work sidebar unless it has a clear purpose.
+- Current approved deviation: Project Detail follows the updated detail reference: breadcrumb, large artifact hero, title/motivation block, action buttons, Challenge/Journey sections, and Key Learnings cards.
 - Current approved deviation: Active Quests uses separate Building, Writing, and Learning lanes with a compact summary stat band instead of one mixed status panel.
 - Current approved deviation: Writing uses Medium-style article preview cards with image areas, summaries, and clear read actions; external article links can be added later while internal Field Note routes remain the fallback.
 - Current approved deviation: Contact follows the Social Guild reference structure but uses professional copy, practical contact exits, and a profile-image placeholder until a real photo is provided.
