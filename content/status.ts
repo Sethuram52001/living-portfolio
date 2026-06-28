@@ -16,6 +16,6 @@ export const statusHud = {
   learning: {
     label: "Learning",
     value: "Portfolio content modeling placeholder",
-    skills: ["technical-writing", "ai-code-analysis"],
+    skills: ["technical-writing", "ai-tooling"],
   },
 } satisfies StatusHudInput;

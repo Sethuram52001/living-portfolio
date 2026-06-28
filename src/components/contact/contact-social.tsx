@@ -30,22 +30,30 @@ const contactCopy: Record<string, { title: string; body: string; action: string 
 
 export function ContactSocial({ links }: ContactSocialProps) {
   return (
-    <section className="grid gap-10">
-      <header className="rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-highest p-6 shadow-lp-level-4 lg:p-8">
-        <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-center">
-          <div className="grid aspect-square max-w-48 place-items-center rounded-full border-[3px] border-lp-ink bg-lp-surface-container-lowest shadow-lp-level-2">
-            <span className="text-6xl font-black text-lp-primary">S</span>
+    <section className="grid gap-12">
+      <header className="rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-highest p-5 shadow-lp-level-4 lg:p-8">
+        <div className="grid gap-7 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-center">
+          <div className="mx-auto grid w-full max-w-64 justify-items-center lg:mx-0">
+            <div className="relative grid aspect-square w-full place-items-center overflow-hidden rounded-full border-[4px] border-lp-ink bg-lp-surface-container-lowest shadow-lp-level-3">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_34%,rgba(16,185,129,0.34),transparent_18%),linear-gradient(150deg,var(--lp-color-surface-container-lowest),var(--lp-color-surface-container-high))]" />
+              <span className="relative text-7xl font-black text-lp-primary">S</span>
+            </div>
+            <span className="-mt-5 rounded-full border-[3px] border-lp-ink bg-lp-secondary-container px-5 py-2 font-mono text-xs font-black uppercase tracking-[0.08em] text-lp-on-surface shadow-lp-level-2">
+              Photo placeholder
+            </span>
           </div>
+
           <div>
             <p className="font-mono text-sm font-black uppercase tracking-[0.08em] text-lp-secondary">
               Contact
             </p>
-            <h1 className="mt-3 text-5xl font-black leading-none text-lp-on-surface lg:text-6xl">
+            <h1 className="mt-3 text-5xl font-black leading-none text-lp-primary lg:text-7xl">
               Sethuram
             </h1>
             <p className="mt-4 max-w-3xl text-lg font-bold leading-8 text-lp-on-surface-variant">
-              Backend engineer with light AI and frontend breadth. Use this page for
-              practical links: resume, source, professional profile, and direct contact.
+              Backend engineer with light AI and frontend breadth. This page keeps
+              the practical exits easy: resume, source code, professional profile,
+              and direct contact.
             </p>
             <dl className="mt-6 grid gap-3 sm:grid-cols-2">
               <ContactSignal label="Role" value={siteConfig.role} />
@@ -59,8 +67,8 @@ export function ContactSocial({ links }: ContactSocialProps) {
         <p className="font-mono text-sm font-black uppercase tracking-[0.08em] text-lp-secondary">
           Practical Links
         </p>
-        <h2 className="mt-3 text-4xl font-black leading-tight text-lp-on-surface">
-          Where to continue
+        <h2 className="mt-3 text-4xl font-black leading-tight text-lp-on-surface lg:text-5xl">
+          Continue the conversation
         </h2>
 
         <div className="mt-6 grid gap-5 lg:grid-cols-2">
@@ -92,37 +100,39 @@ function ContactCard({ link }: { link: ExternalLink }) {
   };
 
   return (
-    <article className="rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-lowest p-5 shadow-lp-level-3 lg:p-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
+    <article className="grid min-h-64 overflow-hidden rounded-lp-xl border-[3px] border-lp-ink bg-lp-surface-container-lowest shadow-lp-level-3">
+      <div className="flex items-start justify-between gap-4 border-b-[3px] border-lp-ink bg-lp-surface-container p-5">
         <div>
           <p className="font-mono text-xs font-black uppercase tracking-[0.1em] text-lp-secondary">
             {link.placeholder ? "Placeholder" : "Ready"}
           </p>
-          <h3 className="mt-3 text-3xl font-black leading-tight text-lp-on-surface">
+          <h3 className="mt-3 text-3xl font-black leading-tight text-lp-on-surface lg:text-4xl">
             {copy.title}
           </h3>
         </div>
-        <span className="grid size-12 place-items-center rounded-full border-[3px] border-lp-ink bg-lp-primary-container font-black text-lp-on-surface">
+        <span className="grid size-12 shrink-0 place-items-center rounded-full border-[3px] border-lp-ink bg-lp-primary-container font-black text-lp-on-surface">
           {link.label.slice(0, 1)}
         </span>
       </div>
 
-      <p className="mt-4 text-base font-bold leading-7 text-lp-on-surface-variant">
-        {copy.body}
-      </p>
+      <div className="flex flex-col justify-between gap-6 p-5 lg:p-6">
+        <p className="text-base font-bold leading-7 text-lp-on-surface-variant">
+          {copy.body}
+        </p>
 
-      {link.placeholder ? (
-        <span className="mt-6 inline-flex rounded-lp border-[3px] border-lp-outline bg-lp-surface-container px-5 py-3 text-sm font-black uppercase text-lp-on-surface-variant">
-          {copy.action}
-        </span>
-      ) : (
-        <a
-          href={link.href}
-          className="mt-6 inline-flex rounded-lp border-[3px] border-lp-ink bg-lp-primary px-5 py-3 text-sm font-black uppercase text-lp-inverse-on-surface shadow-lp-level-2 transition hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
-        >
-          {copy.action}
-        </a>
-      )}
+        {link.placeholder ? (
+          <span className="inline-flex w-fit rounded-lp border-[3px] border-lp-outline bg-lp-surface-container px-5 py-3 text-sm font-black uppercase text-lp-on-surface-variant">
+            {copy.action}
+          </span>
+        ) : (
+          <a
+            href={link.href}
+            className="inline-flex w-fit rounded-lp border-[3px] border-lp-ink bg-lp-primary px-5 py-3 text-sm font-black uppercase text-lp-inverse-on-surface shadow-lp-level-2 transition hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+          >
+            {copy.action}
+          </a>
+        )}
+      </div>
     </article>
   );
 }
