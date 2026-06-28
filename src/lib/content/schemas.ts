@@ -30,6 +30,14 @@ export const itemArtifactSchema = z.object({
   href: z.string().min(1),
 });
 
+export const itemDeploymentSchema = z
+  .object({
+    status: z.enum(["available", "under-development", "none"]),
+    label: z.string().min(1).optional(),
+    href: z.string().min(1).optional(),
+  })
+  .default({ status: "none" });
+
 export const itemProofSchema = z.object({
   motivation: z.string().min(1),
   learned: z.string().min(1),
@@ -44,10 +52,14 @@ export const itemFrontmatterSchema = z.object({
   summary: z.string().min(1),
   zone: slugSchema,
   skills: z.array(slugSchema).min(1),
+  tech: z.array(z.string().min(1)).default([]),
   artifact: itemArtifactSchema,
+  deployment: itemDeploymentSchema,
   proof: itemProofSchema,
   links: z.array(linkSchema).default([]),
 });
+
+export const fieldNoteCategorySchema = z.enum(["dsa", "technical", "personal"]);
 
 export const fieldNoteFrontmatterSchema = z.object({
   slug: slugSchema,
@@ -56,6 +68,7 @@ export const fieldNoteFrontmatterSchema = z.object({
   placeholder: z.boolean(),
   summary: z.string().min(1),
   date: dateSchema,
+  category: fieldNoteCategorySchema,
   topics: z.array(z.string().min(1)).default([]),
   externalUrl: z.string().min(1).optional(),
   previewImage: z.string().min(1).optional(),
