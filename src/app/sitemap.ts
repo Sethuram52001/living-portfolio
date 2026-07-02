@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 import { loadItems } from "@/lib/content/loaders";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = siteConfig.routes.map((route) => ({
+  const staticRoutes = [...siteConfig.routes, { href: "/map-v1" }].map((route) => ({
     url: new URL(route.href, siteConfig.url).toString(),
     changeFrequency: "monthly" as const,
     priority: route.href === "/" ? 1 : 0.8,
