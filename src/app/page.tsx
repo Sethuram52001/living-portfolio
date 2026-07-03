@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LivingPortfolioSpa } from "@/components/living-spa/living-portfolio-spa";
+import { PremiumPortfolioSpa } from "@/components/premium-spa/premium-portfolio-spa";
 import { siteConfig } from "@/config/site";
 import {
   loadCurrentQuests,
@@ -7,25 +7,27 @@ import {
   loadFieldNotes,
   loadItems,
   loadSkillGroups,
+  loadStatusHud,
 } from "@/lib/content/loaders";
 import { createPageMetadata } from "@/lib/site/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Backend Engineer",
   description:
-    "A single-page living workspace portfolio for Sethuram, a backend engineer exploring production systems, AI tooling, selected work, writing, and contact paths.",
+    "Sethuram is a backend engineer building reliable systems, fintech workflows, and AI developer tooling.",
   path: "/",
 });
 
 export default function Home() {
   return (
-    <LivingPortfolioSpa
+    <PremiumPortfolioSpa
       currentQuests={loadCurrentQuests()}
       experiencePhases={loadExperiencePhases()}
       externalLinks={siteConfig.externalLinks}
       fieldNotes={loadFieldNotes()}
       items={loadItems()}
       skillGroups={loadSkillGroups()}
+      statusHud={loadStatusHud()}
     />
   );
 }
