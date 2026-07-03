@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { loadAllContent } from "./loaders";
 
 type ValidationIssue = {
@@ -14,6 +16,14 @@ type SlugIndex = {
   experiences: Set<string>;
   skills: Set<string>;
 };
+
+const homepageProjectSlugs = [
+  "ai-code-analysis-tool",
+  "expense-tracker-api",
+  "realtime-chat-service",
+  "path-visualizer",
+  "system-design-notebook",
+] as const;
 
 function addIssue(issues: ValidationIssue[], collection: string, message: string) {
   issues.push({ collection, message });
@@ -69,6 +79,37 @@ function isPlaceholderDraft(status: string, placeholder: boolean) {
   return placeholder && status === "draft";
 }
 
+function checkPublicAsset(
+  issues: ValidationIssue[],
+  collection: string,
+  ownerSlug: string,
+  assetPath: string | undefined,
+) {
+  if (!assetPath) {
+    addIssue(issues, collection, `${ownerSlug} is missing previewImage.`);
+    return;
+  }
+
+  if (!assetPath.startsWith("/")) {
+    addIssue(
+      issues,
+      collection,
+      `${ownerSlug} previewImage must use a public absolute path.`,
+    );
+    return;
+  }
+
+  const filePath = join(process.cwd(), "public", assetPath.slice(1));
+
+  if (!existsSync(filePath)) {
+    addIssue(
+      issues,
+      collection,
+      `${ownerSlug} previewImage points to missing public asset "${assetPath}".`,
+    );
+  }
+}
+
 export function validateAllContent() {
   const issues: ValidationIssue[] = [];
 
@@ -110,6 +151,17 @@ export function validateAllContent() {
           }
         }
       }
+    }
+
+    for (const slug of homepageProjectSlugs) {
+      const item = content.items.find((candidate) => candidate.slug === slug);
+
+      if (!item) {
+        addIssue(issues, "items", `Homepage project "${slug}" is missing.`);
+        continue;
+      }
+
+      checkPublicAsset(issues, "items", item.slug, item.previewImage);
     }
 
     for (const note of content.fieldNotes) {

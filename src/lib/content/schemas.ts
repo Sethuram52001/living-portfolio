@@ -55,6 +55,7 @@ export const itemFrontmatterSchema = z.object({
   tech: z.array(z.string().min(1)).default([]),
   artifact: itemArtifactSchema,
   deployment: itemDeploymentSchema,
+  previewImage: z.string().min(1).optional(),
   proof: itemProofSchema,
   links: z.array(linkSchema).default([]),
 });
