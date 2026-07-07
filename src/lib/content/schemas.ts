@@ -61,14 +61,11 @@ export const itemFrontmatterSchema = z.object({
 export const fieldNoteCategorySchema = z.enum(["dsa", "technical", "personal"]);
 
 export const fieldNoteFrontmatterSchema = z.object({
-  slug: slugSchema,
   title: z.string().min(1),
   status: publicationStatusSchema,
-  placeholder: z.boolean(),
   summary: z.string().min(1),
   date: dateSchema,
   category: fieldNoteCategorySchema,
-  topics: z.array(z.string().min(1)).default([]),
   externalUrl: z.string().min(1).optional(),
   previewImage: z.string().min(1).optional(),
 });
@@ -78,14 +75,12 @@ export const referenceSchema = z
     items: z.array(slugSchema).default([]),
     quests: z.array(slugSchema).default([]),
     experiences: z.array(slugSchema).default([]),
-    fieldNotes: z.array(slugSchema).default([]),
     skills: z.array(slugSchema).default([]),
   })
   .default({
     items: [],
     quests: [],
     experiences: [],
-    fieldNotes: [],
     skills: [],
   });
 
@@ -144,7 +139,6 @@ export const statusHudSchema = z.object({
   writing: z.object({
     label: z.string().min(1),
     value: z.string().min(1),
-    fieldNote: slugSchema.optional(),
   }),
   learning: z.object({
     label: z.string().min(1),

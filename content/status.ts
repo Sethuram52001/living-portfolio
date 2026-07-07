@@ -11,7 +11,6 @@ export const statusHud = {
   writing: {
     label: "Writing",
     value: "Writing about Go internals, DSA, and backend learning notes",
-    fieldNote: "backend-reliability-notes",
   },
   learning: {
     label: "Learning",

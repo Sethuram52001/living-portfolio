@@ -79,7 +79,6 @@ export const skillGroups = [
         summary: "General-purpose language useful for scripting, automation, FastAPI services, and AI-adjacent experiments.",
         references: {
           experiences: ["zenstatement"],
-          fieldNotes: ["ai-tooling-notes"],
         },
       },
       {
@@ -133,7 +132,7 @@ export const skillGroups = [
         status: "current",
         summary: "React framework used for static-first, SEO-friendly, production-ready web experiences.",
         references: {
-          items: ["system-design-notebook"],
+          items: ["old-portfolio"],
         },
       },
     ],
@@ -423,7 +422,6 @@ export const skillGroups = [
         summary: "Core structures for organizing data and reasoning about performance in algorithms and systems.",
         references: {
           items: ["path-visualizer", "sorting-visualizer"],
-          fieldNotes: ["redis-locking-notes", "pathfinding-algorithms"],
           experiences: ["thiagarajar-college-of-engineering"],
         },
       },
@@ -470,7 +468,6 @@ export const skillGroups = [
         status: "current",
         summary: "Explaining engineering concepts, DSA topics, and implementation tradeoffs through clear writing.",
         references: {
-          fieldNotes: ["backend-reliability-notes", "pathfinding-algorithms", "redis-locking-notes"],
           items: ["system-design-notebook"],
         },
       },

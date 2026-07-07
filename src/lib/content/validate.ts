@@ -10,7 +10,6 @@ type ValidationIssue = {
 
 type SlugIndex = {
   items: Set<string>;
-  fieldNotes: Set<string>;
   quests: Set<string>;
   experiences: Set<string>;
   skills: Set<string>;
@@ -119,14 +118,12 @@ export function validateAllContent() {
 
     const index: SlugIndex = {
       items: new Set(content.items.map((item) => item.slug)),
-      fieldNotes: new Set(content.fieldNotes.map((note) => note.slug)),
       quests: new Set(content.currentQuests.map((quest) => quest.slug)),
       experiences: new Set(experienceSlugs),
       skills: new Set(skillSlugs),
     };
 
     checkUniqueSlugs(issues, "items", content.items.map((item) => item.slug));
-    checkUniqueSlugs(issues, "fieldNotes", content.fieldNotes.map((note) => note.slug));
     checkUniqueSlugs(issues, "currentQuests", content.currentQuests.map((quest) => quest.slug));
     checkUniqueSlugs(issues, "experiencePhases", experienceSlugs);
     checkUniqueSlugs(issues, "skills", skillSlugs);
@@ -158,23 +155,9 @@ export function validateAllContent() {
       checkPublicAsset(issues, "items", item.slug, item.previewImage);
     }
 
-    for (const note of content.fieldNotes) {
-      if (note.placeholder && note.status !== "draft") {
-        addIssue(issues, "fieldNotes", `${note.slug} is placeholder content but is not draft.`);
-      }
-    }
-
     for (const quest of content.currentQuests) {
       checkReferenceList(issues, "currentQuests", quest.slug, "skills", quest.references.skills, index);
       checkReferenceList(issues, "currentQuests", quest.slug, "items", quest.references.items, index);
-      checkReferenceList(
-        issues,
-        "currentQuests",
-        quest.slug,
-        "fieldNotes",
-        quest.references.fieldNotes,
-        index,
-      );
     }
 
     for (const group of content.skillGroups) {
@@ -187,14 +170,6 @@ export function validateAllContent() {
           skill.slug,
           "experiences",
           skill.references.experiences,
-          index,
-        );
-        checkReferenceList(
-          issues,
-          "skills",
-          skill.slug,
-          "fieldNotes",
-          skill.references.fieldNotes,
           index,
         );
       }
@@ -219,14 +194,6 @@ export function validateAllContent() {
     }
 
     checkReference(issues, "statusHud", "building", "quests", content.statusHud.building.quest, index);
-    checkReference(
-      issues,
-      "statusHud",
-      "writing",
-      "fieldNotes",
-      content.statusHud.writing.fieldNote,
-      index,
-    );
     checkReferenceList(issues, "statusHud", "learning", "skills", content.statusHud.learning.skills, index);
 
     return { ok: issues.length === 0, issues, content };
