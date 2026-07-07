@@ -1,8 +1,8 @@
 import type { StatusHudInput } from "@/lib/content/schemas";
 
 export const statusHud = {
-  placeholder: true,
-  updatedOn: "2026-06-15",
+  placeholder: false,
+  updatedOn: "2026-07-03",
   building: {
     label: "Building",
     value: "AI code analysis tool placeholder",
@@ -10,12 +10,12 @@ export const statusHud = {
   },
   writing: {
     label: "Writing",
-    value: "Living portfolio field notes placeholder",
-    fieldNote: "first-map-notes",
+    value: "Writing about Go internals, DSA, and backend learning notes",
+    fieldNote: "backend-reliability-notes",
   },
   learning: {
     label: "Learning",
     value: "Portfolio content modeling placeholder",
-    skills: ["technical-writing", "ai-tooling"],
+    skills: ["technical-writing", "llms"],
   },
 } satisfies StatusHudInput;
