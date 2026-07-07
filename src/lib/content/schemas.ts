@@ -20,7 +20,6 @@ export const linkSchema = z.object({
 });
 
 export const publicationStatusSchema = z.enum(["draft", "published"]);
-export const zoneStatusSchema = z.enum(["available", "current", "locked"]);
 export const skillStatusSchema = z.enum(["available", "current", "learning", "completed"]);
 export const questStatusSchema = z.enum(["planned", "in-progress", "paused", "completed"]);
 
@@ -50,11 +49,11 @@ export const itemFrontmatterSchema = z.object({
   status: publicationStatusSchema,
   placeholder: z.boolean(),
   summary: z.string().min(1),
-  zone: slugSchema,
   skills: z.array(slugSchema).min(1),
   tech: z.array(z.string().min(1)).default([]),
   artifact: itemArtifactSchema,
   deployment: itemDeploymentSchema,
+  previewImage: z.string().min(1).optional(),
   proof: itemProofSchema,
   links: z.array(linkSchema).default([]),
 });
@@ -74,29 +73,9 @@ export const fieldNoteFrontmatterSchema = z.object({
   previewImage: z.string().min(1).optional(),
 });
 
-export const zoneSchema = z.object({
-  slug: slugSchema,
-  title: z.string().min(1),
-  plainTitle: z.string().min(1),
-  status: zoneStatusSchema,
-  summary: z.string().min(1),
-  surface: z.enum(["home", "work", "experience", "skills", "quest-log", "writing", "contact"]),
-  order: z.number().int().nonnegative(),
-  placeholder: z.boolean(),
-  links: z
-    .object({
-      item: slugSchema.optional(),
-      quest: slugSchema.optional(),
-      experience: slugSchema.optional(),
-      fieldNote: slugSchema.optional(),
-    })
-    .default({}),
-});
-
 export const referenceSchema = z
   .object({
     items: z.array(slugSchema).default([]),
-    zones: z.array(slugSchema).default([]),
     quests: z.array(slugSchema).default([]),
     experiences: z.array(slugSchema).default([]),
     fieldNotes: z.array(slugSchema).default([]),
@@ -104,7 +83,6 @@ export const referenceSchema = z
   })
   .default({
     items: [],
-    zones: [],
     quests: [],
     experiences: [],
     fieldNotes: [],
@@ -185,13 +163,11 @@ export const fieldNoteDocumentSchema = fieldNoteFrontmatterSchema.extend({
 
 export type ItemDocument = z.infer<typeof itemDocumentSchema>;
 export type FieldNoteDocument = z.infer<typeof fieldNoteDocumentSchema>;
-export type Zone = z.infer<typeof zoneSchema>;
 export type SkillGroup = z.infer<typeof skillGroupSchema>;
 export type CurrentQuest = z.infer<typeof currentQuestSchema>;
 export type ExperiencePhase = z.infer<typeof experiencePhaseSchema>;
 export type StatusHud = z.infer<typeof statusHudSchema>;
 
-export type ZoneInput = z.input<typeof zoneSchema>;
 export type SkillGroupInput = z.input<typeof skillGroupSchema>;
 export type CurrentQuestInput = z.input<typeof currentQuestSchema>;
 export type ExperiencePhaseInput = z.input<typeof experiencePhaseSchema>;

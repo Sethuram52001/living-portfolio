@@ -11,8 +11,7 @@ export const currentQuests = [
     focus: ["building", "learning"],
     links: [],
     references: {
-      skills: ["ai-tooling", "node-js", "typescript"],
-      zones: ["current-camp"],
+      skills: ["llms", "codex", "node-js", "typescript"],
       items: ["ai-code-analysis-tool"],
     },
   },

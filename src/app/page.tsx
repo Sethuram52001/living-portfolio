@@ -1,29 +1,33 @@
 import type { Metadata } from "next";
-import { HomeHero } from "@/components/home/home-hero";
-import { toHomeZones } from "@/components/home/home-map-data";
-import { WorldMapSurface } from "@/components/home/world-map-surface";
-import { getRequiredRouteByHref } from "@/config/site";
-import { loadZones } from "@/lib/content/loaders";
+import { PremiumPortfolioSpa } from "@/components/premium-spa/premium-portfolio-spa";
+import { siteConfig } from "@/config/site";
+import {
+  loadCurrentQuests,
+  loadExperiencePhases,
+  loadFieldNotes,
+  loadItems,
+  loadSkillGroups,
+  loadStatusHud,
+} from "@/lib/content/loaders";
 import { createPageMetadata } from "@/lib/site/metadata";
 
-const route = getRequiredRouteByHref("/");
-
 export const metadata: Metadata = createPageMetadata({
-  title: "Living Portfolio",
-  description: route.description,
-  path: route.href,
+  title: "Backend Engineer",
+  description:
+    "Sethuram is a backend engineer building reliable systems, fintech workflows, and AI developer tooling.",
+  path: "/",
 });
 
 export default function Home() {
-  const zones = toHomeZones(loadZones());
-
   return (
-    <div className="grid gap-10 lg:gap-14">
-      <HomeHero />
-
-      <section>
-        <WorldMapSurface zones={zones} />
-      </section>
-    </div>
+    <PremiumPortfolioSpa
+      currentQuests={loadCurrentQuests()}
+      experiencePhases={loadExperiencePhases()}
+      externalLinks={siteConfig.externalLinks}
+      fieldNotes={loadFieldNotes()}
+      items={loadItems()}
+      skillGroups={loadSkillGroups()}
+      statusHud={loadStatusHud()}
+    />
   );
 }

@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
-import { AppShell } from "@/components/app-shell";
+import { Inter } from "next/font/google";
+import { AppShellPremium } from "@/components/app-shell-premium";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-premium",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -30,10 +37,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full">
-        <AppShell>{children}</AppShell>
+        <AppShellPremium>{children}</AppShellPremium>
       </body>
     </html>
   );
 }
+
