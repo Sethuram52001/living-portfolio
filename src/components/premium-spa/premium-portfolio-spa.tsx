@@ -11,7 +11,7 @@ import {
 } from "motion/react";
 import type { ExternalLink } from "@/config/site";
 import { TechIcon } from "@/components/tech-icon";
-import { ScrollLottie, AutoplayLottie } from "./scroll-lottie";
+
 import type {
   CurrentQuest,
   ExperiencePhase,
@@ -36,11 +36,9 @@ type PremiumPortfolioSpaProps = {
 };
 
 const selectedWorkSlugs = [
-  "ai-code-analysis-tool",
-  "expense-tracker-api",
-  "realtime-chat-service",
   "path-visualizer",
-  "system-design-notebook",
+  "sorting-visualizer",
+  "old-portfolio",
 ] as const;
 
 /* ------------------------------------------------------------------ */
@@ -77,10 +75,7 @@ export function PremiumPortfolioSpa({
 
   return (
     <div className="mx-auto max-w-6xl">
-      <HeroSection
-        currentQuest={currentQuest}
-        externalLinks={externalLinks}
-      />
+      <HeroSection />
       <HighlightsSection />
       <ExperienceSection phases={experiencePhases} />
       <SkillsSection skillGroups={skillGroups} />
@@ -102,17 +97,19 @@ export function PremiumPortfolioSpa({
 }
 
 /* ------------------------------------------------------------------ */
-/* Shared: Scroll-reveal with scale                                    */
+/* Shared: Scroll-reveal with blur (Apple Vision Pro style)            */
 /* ------------------------------------------------------------------ */
 
 function Reveal({
   children,
   className,
   delay = 0,
+  blur = true,
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
+  blur?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px 0px" });
@@ -121,14 +118,24 @@ function Reveal({
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 30, scale: 0.97 }}
+      initial={{
+        opacity: 0,
+        y: 30,
+        scale: 0.97,
+        filter: blur ? "blur(6px)" : "blur(0px)",
+      }}
       animate={
         isInView
-          ? { opacity: 1, y: 0, scale: 1 }
-          : { opacity: 0, y: 30, scale: 0.97 }
+          ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
+          : {
+              opacity: 0,
+              y: 30,
+              scale: 0.97,
+              filter: blur ? "blur(6px)" : "blur(0px)",
+            }
       }
       transition={{
-        duration: 0.7,
+        duration: 0.8,
         ease: [0.22, 1, 0.36, 1],
         delay,
       }}
@@ -168,13 +175,7 @@ function SectionHeader({
 /* 1. Hero / About — scroll-driven Lottie + parallax                   */
 /* ------------------------------------------------------------------ */
 
-function HeroSection({
-  currentQuest,
-  externalLinks,
-}: {
-  currentQuest: CurrentQuest | undefined;
-  externalLinks: readonly ExternalLink[];
-}) {
+function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -205,14 +206,7 @@ function HeroSection({
         aria-hidden="true"
       />
 
-      {/* Scroll-driven hero Lottie */}
-      <ScrollLottie
-        path="/animations/hero.json"
-        className="pointer-events-none absolute right-[-5%] top-[5%] w-[400px] opacity-25 md:right-[2%] md:top-[8%] md:w-[550px] lg:w-[620px]"
-        containerRef={sectionRef}
-        scrollRange={[0, 0.8]}
-        style={{ opacity: 0.2 }}
-      />
+
 
       <motion.div
         className="relative z-10 max-w-3xl"
@@ -235,60 +229,13 @@ function HeroSection({
         {/* Supporting copy */}
         <Reveal delay={0.2}>
           <p className="mt-8 max-w-2xl text-xl leading-relaxed text-pm-text-secondary md:text-2xl md:leading-relaxed">
-            I build backend systems with a product eye — distributed
-            workflows, fintech reliability, and production-grade services.
-            Currently exploring AI developer tooling.
+            Software engineer with 3 years of backend experience designing
+            distributed fintech systems across event-driven pipelines,
+            IAM/FGAC, billing, reconciliation, credit management, and database
+            performance. I care about reliable, scalable, observable systems —
+            and I write to sharpen how I understand and explain engineering.
           </p>
         </Reveal>
-
-        {/* CTA row */}
-        <Reveal delay={0.3}>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            {externalLinks.map((link) =>
-              link.placeholder ? (
-                <span
-                  key={link.label}
-                  className="inline-flex items-center rounded-full border border-pm-border px-5 py-2.5 text-sm font-medium text-pm-text-tertiary"
-                >
-                  {link.label}
-                </span>
-              ) : (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center rounded-full bg-pm-text px-5 py-2.5 text-sm font-medium text-pm-surface transition-opacity hover:opacity-80"
-                >
-                  {link.label}
-                  <ExternalArrow />
-                </a>
-              ),
-            )}
-          </div>
-        </Reveal>
-
-        {/* Current build callout */}
-        {currentQuest && (
-          <Reveal delay={0.4}>
-            <div className="mt-14 flex items-start gap-4 rounded-[var(--pm-radius-lg)] border border-pm-border bg-pm-surface-elevated p-6 shadow-pm-sm">
-              <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-pm-accent-emerald-subtle">
-                <span className="size-2 rounded-full bg-pm-accent-emerald" />
-              </div>
-              <div>
-                <p className="text-xs font-semibold tracking-wider uppercase text-pm-accent-emerald">
-                  Currently building
-                </p>
-                <p className="mt-1.5 text-base font-semibold text-pm-text">
-                  {currentQuest.title}
-                </p>
-                <p className="mt-1 text-sm leading-relaxed text-pm-text-secondary">
-                  {currentQuest.summary}
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        )}
       </motion.div>
     </section>
   );
@@ -347,7 +294,6 @@ function HighlightCard({
         ref={ref}
         className="group relative overflow-hidden rounded-[var(--pm-radius-xl)] border border-pm-border bg-pm-surface-elevated p-7 shadow-pm-xs transition duration-300 hover:-translate-y-1 hover:shadow-pm-md"
       >
-        {/* Accent bar — grows from 0 to full width on scroll */}
         <motion.span
           className={`absolute inset-x-0 top-0 h-1 origin-left ${highlight.accent}`}
           initial={{ scaleX: 0 }}
@@ -549,14 +495,7 @@ function SkillsSection({ skillGroups }: { skillGroups: SkillGroup[] }) {
       id="skills"
       className="relative border-t border-pm-border px-6 py-24 md:py-32 lg:px-10"
     >
-      {/* Ambient Lottie behind skills grid */}
-      <AutoplayLottie
-        path="/animations/skills.json"
-        className="pointer-events-none absolute right-0 top-[10%] w-[300px] opacity-10 md:w-[400px]"
-        loop
-        speed={0.5}
-        playOnView
-      />
+
 
       <div className="relative z-10">
         <SectionHeader
@@ -786,7 +725,7 @@ function ProjectHighlightCard({
 }) {
   const sourceHref = getProjectSourceHref(item);
   const cardClassName = [
-    "group/card flex min-h-[620px] min-w-[calc(100vw-3rem)] snap-start flex-col overflow-hidden rounded-[2rem] border p-4 shadow-pm-sm transition duration-300 md:min-w-[660px] lg:min-w-[760px]",
+    "group/card flex min-h-[500px] min-w-[calc(100vw-3rem)] snap-start flex-col overflow-hidden rounded-[2rem] border p-3 shadow-pm-sm transition duration-300 md:min-w-[660px] lg:min-w-[760px]",
     sourceHref
       ? "cursor-pointer hover:shadow-pm-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pm-accent-emerald"
       : "cursor-default",
@@ -797,7 +736,7 @@ function ProjectHighlightCard({
 
   const content = (
     <>
-      <div className="relative aspect-[16/9] overflow-hidden rounded-[1.5rem] bg-pm-surface-alt">
+      <div className="relative h-48 overflow-hidden rounded-[1.35rem] bg-pm-surface-alt md:h-64 lg:h-80 xl:h-[360px]">
         {item.previewImage ? (
           <Image
             src={item.previewImage}
@@ -814,7 +753,7 @@ function ProjectHighlightCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col px-2 pb-4 pt-7 md:px-4">
+      <div className="flex flex-1 flex-col px-2 pb-3 pt-5 md:px-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span
             className={[
@@ -831,14 +770,14 @@ function ProjectHighlightCard({
           </span>
         </div>
 
-        <h3 className="mt-7 max-w-xl text-3xl font-semibold tracking-tight text-pm-text md:text-4xl">
+        <h3 className="mt-5 max-w-xl text-3xl font-semibold tracking-tight text-pm-text">
           {item.title}
         </h3>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-pm-text-secondary md:text-lg">
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-pm-text-secondary">
           {item.summary}
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-2">
           {item.tech.slice(0, 4).map((tech) => (
             <span
               key={tech}
@@ -849,7 +788,7 @@ function ProjectHighlightCard({
           ))}
         </div>
 
-        <div className="mt-auto border-t border-pm-border pt-5">
+        <div className="mt-auto border-t border-pm-border pt-4">
           <p className="text-xs font-semibold tracking-wider uppercase text-pm-text-tertiary">
             Why it matters
           </p>
@@ -1005,12 +944,7 @@ function CurrentFocusSection({
     >
       <div ref={stickyRef}>
         <div className="relative overflow-hidden rounded-[2rem] bg-pm-text text-pm-surface shadow-pm-lg">
-          <ScrollLottie
-            path="/animations/current-build.json"
-            className="pointer-events-none absolute inset-0 opacity-[0.07]"
-            containerRef={stickyRef}
-            scrollRange={[0, 0.9]}
-          />
+
 
           <div className="relative z-10 p-8 md:p-12 lg:p-16">
             <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
@@ -1157,13 +1091,7 @@ function WritingSection({ fieldNotes }: { fieldNotes: FieldNoteDocument[] }) {
       id="writing"
       className="relative border-t border-pm-border px-6 py-24 md:py-32 lg:px-10"
     >
-      {/* Small accent Lottie — notebook/pen */}
-      <AutoplayLottie
-        path="/animations/writing.json"
-        className="pointer-events-none absolute left-[5%] top-[15%] w-[180px] opacity-10 md:w-[240px]"
-        loop={false}
-        playOnView
-      />
+
 
       <div className="relative z-10">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
@@ -1230,80 +1158,182 @@ function WritingSection({ fieldNotes }: { fieldNotes: FieldNoteDocument[] }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 8. Contact — scale entrance + Lottie                                */
+/* 8. Contact — compact split: links left, ID badge right              */
 /* ------------------------------------------------------------------ */
+
+type ContactChannel = {
+  link: ExternalLink;
+  title: string;
+  actionLabel: string;
+  icon: "document" | "linkedin" | "github";
+};
 
 function ContactSection({
   externalLinks,
 }: {
   externalLinks: readonly ExternalLink[];
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px 0px" });
+  const officialEmail = getExternalLink(externalLinks, "Email");
+  const resume = getExternalLink(externalLinks, "Resume");
+  const linkedIn = getExternalLink(externalLinks, "LinkedIn");
+  const github = getExternalLink(externalLinks, "GitHub");
+
+  const secondaryChannels = (
+    [
+      resume
+        ? {
+            link: resume,
+            title: "Resume",
+            actionLabel: "View resume",
+            icon: "document" as const,
+          }
+        : null,
+      linkedIn
+        ? {
+            link: linkedIn,
+            title: "LinkedIn",
+            actionLabel: "View profile",
+            icon: "linkedin" as const,
+          }
+        : null,
+      github
+        ? {
+            link: github,
+            title: "GitHub",
+            actionLabel: "View profile",
+            icon: "github" as const,
+          }
+        : null,
+    ] satisfies Array<ContactChannel | null>
+  ).filter(Boolean) as ContactChannel[];
 
   return (
     <section
       id="contact"
-      className="relative border-t border-pm-border px-6 py-24 md:py-32 lg:px-10"
+      className="relative left-1/2 w-screen max-w-none -translate-x-1/2 border-t border-pm-border bg-pm-surface-alt"
     >
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={
-          isInView
-            ? { opacity: 1, scale: 1 }
-            : { opacity: 0, scale: 0.95 }
-        }
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="relative overflow-hidden rounded-[2rem] border border-pm-border bg-pm-surface-elevated p-8 shadow-pm-sm md:p-12 lg:p-16">
-          {/* Contact Lottie — plays once on scroll-in */}
-          <AutoplayLottie
-            path="/animations/contact.json"
-            className="pointer-events-none absolute right-[5%] top-[10%] w-[200px] opacity-10 md:w-[280px]"
-            loop={false}
-            playOnView
-          />
+      <div className="mx-auto max-w-6xl px-6 py-16 md:py-20 lg:px-10">
+        <Reveal blur={false}>
+          <div className="overflow-hidden rounded-[1.75rem] bg-white shadow-pm-md">
+            <div className="grid gap-10 p-8 md:p-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-center lg:gap-12 lg:p-12">
+              <div>
+                <p className="text-sm font-semibold text-pm-text-secondary">
+                  Contact
+                </p>
+                <h2 className="mt-3 max-w-xl text-4xl font-semibold leading-[1.08] tracking-tight text-pm-text md:text-5xl">
+                  Open to what&apos;s next.
+                </h2>
+                <p className="mt-4 max-w-lg text-lg leading-relaxed text-pm-text-secondary">
+                  Open to backend roles, thoughtful product teams, and dev
+                  collaborations — email is the best place to start.
+                </p>
 
-          <div className="relative z-10">
-            <p className="text-sm font-medium tracking-wide uppercase text-pm-accent-emerald">
-              Contact
-            </p>
-            <h2 className="mt-5 max-w-3xl text-5xl font-bold leading-tight tracking-tight text-pm-text md:text-6xl">
-              Let&apos;s talk.
-            </h2>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-pm-text-secondary">
-              If the work feels relevant, the fastest path is through GitHub,
-              LinkedIn, resume, or email once those public links are finalized.
-            </p>
-
-            <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {externalLinks.map((link) =>
-                link.placeholder ? (
-                  <span
-                    key={link.label}
-                    className="rounded-2xl border border-dashed border-pm-border px-5 py-4 text-sm font-semibold text-pm-text-tertiary"
-                  >
-                    {link.label}
-                  </span>
-                ) : (
+                {officialEmail ? (
                   <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-2xl border border-pm-border bg-pm-surface-alt px-5 py-4 text-sm font-semibold text-pm-text transition duration-200 hover:-translate-y-0.5 hover:bg-pm-text hover:text-pm-surface"
+                    href={officialEmail.href}
+                    className="mt-7 inline-flex min-h-11 items-center justify-center rounded-full bg-[#0071e3] px-6 text-[17px] font-medium text-white transition hover:bg-[#0077ed] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0071e3]"
                   >
-                    {link.label}
-                    <ExternalArrow />
+                    Email Sethuram
                   </a>
-                ),
-              )}
+                ) : null}
+
+                {secondaryChannels.length > 0 ? (
+                  <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                    {secondaryChannels.map((channel) => (
+                      <ContactCompactLink key={channel.title} channel={channel} />
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+
+              <aside className="mx-auto w-full max-w-[280px] lg:mx-0 lg:max-w-none lg:justify-self-end">
+                <div className="group relative overflow-hidden rounded-[1.5rem] border border-pm-border bg-white shadow-pm-sm transition duration-300 hover:shadow-pm-md">
+                  <div className="absolute left-1/2 top-3.5 z-20 h-2 w-10 -translate-x-1/2 rounded-full border border-black/5 bg-black/15 shadow-inner" />
+
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-pm-surface-alt">
+                    <Image
+                      src="/profile/sethuram-contact.webp"
+                      alt="Sethuram S V"
+                      fill
+                      sizes="(min-width: 1024px) 300px, 280px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                      style={{ objectPosition: "50% 32%" }}
+                    />
+                  </div>
+
+                  <div className="border-t border-pm-border px-5 py-5 text-center">
+                    <p className="text-xl font-semibold tracking-tight text-pm-text">
+                      Sethuram S V
+                    </p>
+                    <p className="mt-1 text-sm font-medium text-pm-text-secondary">
+                      Backend Engineer
+                    </p>
+                  </div>
+                </div>
+              </aside>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </Reveal>
+      </div>
     </section>
+  );
+}
+
+function ContactCompactLink({ channel }: { channel: ContactChannel }) {
+  return (
+    <a
+      href={channel.link.href}
+      target="_blank"
+      rel="noreferrer"
+      className="group flex min-h-[5.5rem] flex-col justify-between rounded-[1rem] border border-pm-border bg-pm-surface-alt/70 p-4 transition duration-200 hover:border-pm-border-strong hover:bg-white hover:shadow-pm-xs"
+    >
+      <span className="inline-flex size-9 items-center justify-center rounded-full bg-white text-pm-text shadow-pm-xs">
+        <ContactChannelIcon icon={channel.icon} className="size-4" />
+      </span>
+      <span>
+        <span className="block text-sm font-semibold text-pm-text">
+          {channel.title}
+        </span>
+        <span className="mt-1 inline-flex items-center gap-0.5 text-[13px] font-medium text-[#0066cc] group-hover:underline">
+          {channel.actionLabel}
+          <ChevronRight className="size-3.5" />
+        </span>
+      </span>
+    </a>
+  );
+}
+
+function ContactChannelIcon({
+  icon,
+  className,
+}: {
+  icon: ContactChannel["icon"];
+  className?: string;
+}) {
+  switch (icon) {
+    case "document":
+      return <DocumentIcon className={className} />;
+    case "linkedin":
+      return <LinkedInIcon className={className} />;
+    case "github":
+      return <GitHubIcon className={className} />;
+  }
+}
+
+function ChevronRight({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      viewBox="0 0 16 16"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 4l4 4-4 4" />
+    </svg>
   );
 }
 
@@ -1311,11 +1341,56 @@ function ContactSection({
 /* Helpers                                                             */
 /* ------------------------------------------------------------------ */
 
-function ExternalArrow() {
+function DocumentIcon({ className }: { className?: string }) {
   return (
     <svg
       aria-hidden="true"
-      className="ml-2 inline size-3.5"
+      className={className}
+      fill="none"
+      viewBox="0 0 20 20"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 2.75h5.25L15 6.5v10.75H6z" />
+      <path d="M11.25 2.75V6.5H15" />
+      <path d="M8.25 10.25h4.5M8.25 13h3.25" />
+    </svg>
+  );
+}
+
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.68H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12m1.78 13.02H3.54V9H7.1zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0" />
+    </svg>
+  );
+}
+
+function GitHubIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M12 .5a12 12 0 0 0-3.8 23.38c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.21.08 1.85 1.24 1.85 1.24 1.07 1.84 2.82 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5" />
+    </svg>
+  );
+}
+
+function ExternalArrow({ className = "ml-2 inline size-3.5" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
       fill="none"
       viewBox="0 0 14 14"
       stroke="currentColor"
@@ -1340,6 +1415,13 @@ function getProjectSourceHref(item: ItemDocument) {
   }
 
   return undefined;
+}
+
+function getExternalLink(
+  links: readonly ExternalLink[],
+  label: string,
+): ExternalLink | undefined {
+  return links.find((link) => link.label === label && !link.placeholder);
 }
 
 function formatDateRange(dateRange: ExperiencePhase["dateRange"]) {

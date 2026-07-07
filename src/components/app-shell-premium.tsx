@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { siteConfig } from "@/config/site";
+import { SplashIntro } from "@/components/premium-spa/splash-intro";
 
 type AppShellPremiumProps = {
   children: ReactNode;
@@ -22,6 +23,7 @@ export function AppShellPremium({ children }: AppShellPremiumProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
+    <SplashIntro>
     <div className="min-h-screen bg-pm-surface text-pm-text">
       <a
         href="#main-content"
@@ -157,5 +159,6 @@ export function AppShellPremium({ children }: AppShellPremiumProps) {
         </div>
       </footer>
     </div>
+    </SplashIntro>
   );
 }
