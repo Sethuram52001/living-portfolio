@@ -6,7 +6,6 @@ import { experiencePhases } from "../../../content/experience";
 import { skillGroups } from "../../../content/skills";
 import { statusHud } from "../../../content/status";
 import { currentQuests } from "../../../content/quests";
-import { zones } from "../../../content/zones";
 import {
   currentQuestSchema,
   experiencePhaseSchema,
@@ -14,14 +13,12 @@ import {
   itemDocumentSchema,
   skillGroupSchema,
   statusHudSchema,
-  zoneSchema,
   type CurrentQuest,
   type ExperiencePhase,
   type FieldNoteDocument,
   type ItemDocument,
   type SkillGroup,
   type StatusHud,
-  type Zone,
 } from "./schemas";
 
 const rootDir = process.cwd();
@@ -60,10 +57,6 @@ export function loadFieldNotes(): FieldNoteDocument[] {
   return parseMdxCollection("field-notes", fieldNoteDocumentSchema);
 }
 
-export function loadZones(): Zone[] {
-  return z.array(zoneSchema).parse(zones);
-}
-
 export function loadSkillGroups(): SkillGroup[] {
   return z.array(skillGroupSchema).parse(skillGroups);
 }
@@ -84,11 +77,9 @@ export function loadAllContent() {
   return {
     items: loadItems(),
     fieldNotes: loadFieldNotes(),
-    zones: loadZones(),
     skillGroups: loadSkillGroups(),
     currentQuests: loadCurrentQuests(),
     experiencePhases: loadExperiencePhases(),
     statusHud: loadStatusHud(),
   };
 }
-

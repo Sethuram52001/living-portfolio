@@ -11,18 +11,15 @@ type ValidationIssue = {
 type SlugIndex = {
   items: Set<string>;
   fieldNotes: Set<string>;
-  zones: Set<string>;
   quests: Set<string>;
   experiences: Set<string>;
   skills: Set<string>;
 };
 
 const homepageProjectSlugs = [
-  "ai-code-analysis-tool",
-  "expense-tracker-api",
-  "realtime-chat-service",
   "path-visualizer",
-  "system-design-notebook",
+  "sorting-visualizer",
+  "old-portfolio",
 ] as const;
 
 function addIssue(issues: ValidationIssue[], collection: string, message: string) {
@@ -123,7 +120,6 @@ export function validateAllContent() {
     const index: SlugIndex = {
       items: new Set(content.items.map((item) => item.slug)),
       fieldNotes: new Set(content.fieldNotes.map((note) => note.slug)),
-      zones: new Set(content.zones.map((zone) => zone.slug)),
       quests: new Set(content.currentQuests.map((quest) => quest.slug)),
       experiences: new Set(experienceSlugs),
       skills: new Set(skillSlugs),
@@ -131,13 +127,11 @@ export function validateAllContent() {
 
     checkUniqueSlugs(issues, "items", content.items.map((item) => item.slug));
     checkUniqueSlugs(issues, "fieldNotes", content.fieldNotes.map((note) => note.slug));
-    checkUniqueSlugs(issues, "zones", content.zones.map((zone) => zone.slug));
     checkUniqueSlugs(issues, "currentQuests", content.currentQuests.map((quest) => quest.slug));
     checkUniqueSlugs(issues, "experiencePhases", experienceSlugs);
     checkUniqueSlugs(issues, "skills", skillSlugs);
 
     for (const item of content.items) {
-      checkReference(issues, "items", item.slug, "zones", item.zone, index);
       checkReferenceList(issues, "items", item.slug, "skills", item.skills, index);
 
       if (item.placeholder && item.status !== "draft") {
@@ -170,16 +164,8 @@ export function validateAllContent() {
       }
     }
 
-    for (const zone of content.zones) {
-      checkReference(issues, "zones", zone.slug, "items", zone.links.item, index);
-      checkReference(issues, "zones", zone.slug, "quests", zone.links.quest, index);
-      checkReference(issues, "zones", zone.slug, "experiences", zone.links.experience, index);
-      checkReference(issues, "zones", zone.slug, "fieldNotes", zone.links.fieldNote, index);
-    }
-
     for (const quest of content.currentQuests) {
       checkReferenceList(issues, "currentQuests", quest.slug, "skills", quest.references.skills, index);
-      checkReferenceList(issues, "currentQuests", quest.slug, "zones", quest.references.zones, index);
       checkReferenceList(issues, "currentQuests", quest.slug, "items", quest.references.items, index);
       checkReferenceList(
         issues,

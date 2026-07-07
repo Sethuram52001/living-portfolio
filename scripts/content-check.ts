@@ -25,7 +25,6 @@ if (content === null) {
 console.log("Content validation passed.");
 console.log(`- Items: ${content.items.length}`);
 console.log(`- Field Notes: ${content.fieldNotes.length}`);
-console.log(`- Zones: ${content.zones.length}`);
 console.log(`- Skill Groups: ${content.skillGroups.length}`);
 console.log(`- Current Quests: ${content.currentQuests.length}`);
 console.log(`- Experience Phases: ${content.experiencePhases.length}`);
