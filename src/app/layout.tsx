@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { AppShellPremium } from "@/components/app-shell-premium";
+import { AppShell } from "@/components/app-shell";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-premium",
+  variable: "--font-app",
 });
 
 export const metadata: Metadata = {
@@ -39,9 +39,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full">
-        <AppShellPremium>{children}</AppShellPremium>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
 }
-

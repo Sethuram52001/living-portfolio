@@ -10,12 +10,14 @@ import {
   currentQuestSchema,
   experiencePhaseSchema,
   fieldNoteDocumentSchema,
+  highlightsDocumentSchema,
   itemDocumentSchema,
   skillGroupSchema,
   statusHudSchema,
   type CurrentQuest,
   type ExperiencePhase,
   type FieldNoteDocument,
+  type HighlightsDocument,
   type ItemDocument,
   type SkillGroup,
   type StatusHud,
@@ -57,6 +59,19 @@ export function loadFieldNotes(): FieldNoteDocument[] {
   return parseMdxCollection("field-notes", fieldNoteDocumentSchema);
 }
 
+export function loadHighlights(): HighlightsDocument {
+  const documents = parseMdxCollection("highlights", highlightsDocumentSchema);
+  const homepageHighlights = documents.find(
+    (document) => document.slug === "highlights",
+  );
+
+  if (!homepageHighlights) {
+    throw new Error("Missing highlights content.");
+  }
+
+  return homepageHighlights;
+}
+
 export function loadSkillGroups(): SkillGroup[] {
   return z.array(skillGroupSchema).parse(skillGroups);
 }
@@ -77,6 +92,7 @@ export function loadAllContent() {
   return {
     items: loadItems(),
     fieldNotes: loadFieldNotes(),
+    highlights: loadHighlights(),
     skillGroups: loadSkillGroups(),
     currentQuests: loadCurrentQuests(),
     experiencePhases: loadExperiencePhases(),

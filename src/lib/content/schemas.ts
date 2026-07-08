@@ -58,7 +58,7 @@ export const itemFrontmatterSchema = z.object({
   links: z.array(linkSchema).default([]),
 });
 
-export const fieldNoteCategorySchema = z.enum(["dsa", "technical", "personal"]);
+export const fieldNoteCategorySchema = z.enum(["DSA", "technical", "personal"]);
 
 export const fieldNoteFrontmatterSchema = z.object({
   title: z.string().min(1),
@@ -147,6 +147,23 @@ export const statusHudSchema = z.object({
   }),
 });
 
+export const highlightAccentSchema = z.enum(["emerald", "blue", "amber"]);
+
+export const highlightCardSchema = z.object({
+  title: z.string().min(1),
+  summary: z.string().min(1),
+  accent: highlightAccentSchema,
+});
+
+export const highlightsFrontmatterSchema = z.object({
+  slug: slugSchema,
+  eyebrow: z.string().min(1),
+  title: z.string().min(1),
+  mutedTitle: z.string().min(1),
+  supporting: z.string().min(1),
+  highlights: z.array(highlightCardSchema).min(1),
+});
+
 export const itemDocumentSchema = itemFrontmatterSchema.extend({
   body: z.string().min(1),
 });
@@ -155,8 +172,13 @@ export const fieldNoteDocumentSchema = fieldNoteFrontmatterSchema.extend({
   body: z.string().min(1),
 });
 
+export const highlightsDocumentSchema = highlightsFrontmatterSchema.extend({
+  body: z.string(),
+});
+
 export type ItemDocument = z.infer<typeof itemDocumentSchema>;
 export type FieldNoteDocument = z.infer<typeof fieldNoteDocumentSchema>;
+export type HighlightsDocument = z.infer<typeof highlightsDocumentSchema>;
 export type SkillGroup = z.infer<typeof skillGroupSchema>;
 export type CurrentQuest = z.infer<typeof currentQuestSchema>;
 export type ExperiencePhase = z.infer<typeof experiencePhaseSchema>;
