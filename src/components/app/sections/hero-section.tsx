@@ -19,7 +19,7 @@ export function HeroSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative flex min-h-[85vh] flex-col justify-center overflow-hidden px-6 py-24 md:min-h-[90vh] md:py-32 lg:px-10"
+      className="relative left-1/2 flex min-h-[85vh] w-screen -translate-x-1/2 flex-col justify-center overflow-hidden py-24 md:min-h-[90vh] md:py-32"
     >
       <motion.div
         className="pointer-events-none absolute right-[-10%] top-[10%] size-[480px] rounded-full blur-[100px] md:size-[600px]"
@@ -33,30 +33,41 @@ export function HeroSection() {
       />
 
       <motion.div
-        className="relative z-10 max-w-3xl"
+        className="relative z-10 mx-auto w-full max-w-6xl px-6 lg:px-10"
         style={{ scale: headlineScale, opacity: headlineOpacity }}
       >
-        <Reveal>
-          <p className="text-sm font-medium tracking-wide text-app-accent-green">
-            Backend Engineer
-          </p>
-        </Reveal>
+        <div className="max-w-3xl">
+          <Reveal>
+            <p className="text-sm font-medium tracking-wide text-app-accent-green">
+              About
+            </p>
+          </Reveal>
 
-        <Reveal delay={0.1}>
-          <h1 className="mt-6 text-5xl font-bold leading-[1.08] tracking-tight text-app-foreground md:text-7xl lg:text-[80px]">
-            Hi, I&apos;m Sethuram.
-          </h1>
-        </Reveal>
+          <Reveal delay={0.1}>
+            <h1 className="mt-6 text-5xl font-bold leading-[1.08] tracking-tight text-app-foreground md:text-7xl lg:text-[80px]">
+              Hi, I&apos;m Sethuram.
+            </h1>
+          </Reveal>
 
-        <Reveal delay={0.2}>
-          <p className="mt-8 max-w-2xl text-xl leading-relaxed text-app-muted md:text-2xl md:leading-relaxed">
-            Software engineer with 3 years of backend experience designing
-            distributed fintech systems across event-driven pipelines,
-            IAM/FGAC, billing, reconciliation, credit management, and database
-            performance. I care about reliable, scalable, observable systems —
-            and I write to sharpen how I understand and explain engineering.
-          </p>
-        </Reveal>
+          <Reveal delay={0.2}>
+            <div className="mt-8 max-w-2xl space-y-5 text-xl leading-relaxed text-app-muted md:text-2xl md:leading-relaxed">
+              <p>
+                I&apos;m a software engineer with over three years of experience
+                building reliable distributed systems in the fintech space.
+                I&apos;ve worked on scalable microservices across credit
+                management, billing, reconciliation, and IAM services with
+                fine-grained access control.
+              </p>
+              <p>
+                Beyond building systems, I love problem solving and technical
+                writing. I enjoy breaking down complex engineering ideas, from
+                system design patterns to language internals, because I believe
+                explaining something clearly is one of the best ways to truly
+                understand it.
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </motion.div>
     </section>
   );

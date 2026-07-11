@@ -1,45 +1,61 @@
 import { siteConfig } from "@/config/site";
 
+const footerLinkLabels = new Set([
+  "Resume",
+  "GitHub",
+  "LinkedIn",
+  "Medium",
+  "Email",
+]);
+
 export function AppFooter() {
+  const footerLinks = siteConfig.externalLinks.filter(
+    (link) => !link.placeholder && footerLinkLabels.has(link.label),
+  );
+
   return (
-    <footer className="border-t border-app-border bg-app-surface-muted">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12 md:flex-row md:items-center md:justify-between lg:px-10">
-        <div>
-          <p className="text-sm font-semibold text-app-foreground">Sethuram</p>
-          <p className="mt-1 text-sm text-app-muted">
-            Backend engineer · Building reliable systems and useful tools.
-          </p>
+    <footer className="border-t border-app-border bg-app-surface-muted/60">
+      <div className="mx-auto max-w-6xl px-6 lg:px-10">
+        <div className="flex flex-col gap-8 py-10 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-lg font-semibold tracking-tight text-app-foreground">
+              Sethuram
+            </p>
+            <p className="mt-2 text-sm text-app-muted">
+              Backend engineer building reliable systems and useful tools.
+            </p>
+          </div>
+
+          <nav aria-label="Footer links">
+            <ul className="flex flex-wrap gap-x-5 gap-y-3">
+              {footerLinks.map((link) => {
+                const isExternal = !link.href.startsWith("mailto:");
+
+                return (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noreferrer" : undefined}
+                      className="text-sm font-medium text-app-muted transition-colors hover:text-app-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-app-foreground"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
         </div>
 
-        <ul className="flex flex-wrap gap-4">
-          {siteConfig.externalLinks.map((link) =>
-            link.placeholder ? (
-              <li key={link.label}>
-                <span className="text-sm text-app-subtle">
-                  {link.label}
-                </span>
-              </li>
-            ) : (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm font-medium text-app-muted transition-colors hover:text-app-foreground"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ),
-          )}
-        </ul>
-      </div>
-
-      <div className="border-t border-app-border">
-        <div className="mx-auto max-w-6xl px-6 py-5 lg:px-10">
-          <p className="text-xs text-app-subtle">
-            © {new Date().getFullYear()} Sethuram. All rights reserved.
-          </p>
+        <div className="flex flex-col gap-3 border-t border-app-border py-5 text-xs text-app-subtle sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Sethuram. All rights reserved.</p>
+          <a
+            href="#about"
+            className="w-fit font-medium text-app-muted transition-colors hover:text-app-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-app-foreground"
+          >
+            Back to top
+          </a>
         </div>
       </div>
     </footer>

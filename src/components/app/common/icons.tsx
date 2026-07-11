@@ -1,4 +1,5 @@
 import {
+  ArrowUpRightIcon,
   ArrowTopRightOnSquareIcon,
   Bars3Icon as HeroBars3Icon,
   ChatBubbleLeftRightIcon as HeroChatBubbleLeftRightIcon,
@@ -8,7 +9,7 @@ import {
   XMarkIcon as HeroXMarkIcon,
 } from "@heroicons/react/24/outline";
 import type { SVGProps } from "react";
-import { siGithub } from "simple-icons";
+import { siGithub, siMedium } from "simple-icons";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
@@ -42,6 +43,10 @@ export function ExternalArrow({
   return <ArrowTopRightOnSquareIcon aria-hidden="true" className={className} />;
 }
 
+export function ArrowUpRight({ className }: IconProps) {
+  return <ArrowUpRightIcon aria-hidden="true" className={className} />;
+}
+
 export function GitHubIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -68,6 +73,19 @@ export function LinkedInIcon({ className }: { className?: string }) {
         fill="#fff"
         d="M6.94 8.92H3.98v9.48h2.96zM5.46 7.63a1.72 1.72 0 1 0 0-3.43 1.72 1.72 0 0 0 0 3.43m13.26 10.77h-2.95v-4.61c0-1.1-.02-2.51-1.53-2.51-1.53 0-1.76 1.2-1.76 2.43v4.69H9.53V8.92h2.83v1.3h.04a3.1 3.1 0 0 1 2.79-1.53c2.98 0 3.53 1.96 3.53 4.51z"
       />
+    </svg>
+  );
+}
+
+export function MediumIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      viewBox="0 0 24 24"
+    >
+      <rect x="2" y="2" width="20" height="20" fill="currentColor" />
+      <path d={siMedium.path} fill="#000" />
     </svg>
   );
 }

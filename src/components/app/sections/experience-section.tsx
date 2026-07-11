@@ -41,7 +41,7 @@ export function ExperienceSection({ phases }: { phases: ExperiencePhase[] }) {
 
         <ol className="grid gap-12 md:gap-16">
           {phases.map((phase, index) => (
-            <Reveal key={phase.slug} delay={index * 0.08}>
+            <Reveal key={phase.order} delay={index * 0.08}>
               <li className="group relative md:grid md:grid-cols-[180px_1fr] md:gap-14">
                 <div className="mb-3 flex items-center gap-3 md:mb-0 md:flex-col md:items-end md:gap-0 md:pt-1">
                   <time className="whitespace-nowrap text-sm font-medium text-app-muted md:text-right">
@@ -58,7 +58,7 @@ export function ExperienceSection({ phases }: { phases: ExperiencePhase[] }) {
                         {phase.position}
                       </p>
                       <h3 className="mt-2 text-2xl font-bold tracking-tight text-app-foreground">
-                        {phase.company}
+                        {phase.organization}
                       </h3>
                     </div>
                   </div>

@@ -63,7 +63,7 @@ export function HighlightsSection({
       className="border-t border-app-border px-6 py-24 md:py-32 lg:px-10"
     >
       <SectionHeader
-        eyebrow={content.eyebrow}
+        eyebrow="Highlights"
         title={
           <>
             {content.title}{" "}
@@ -72,7 +72,6 @@ export function HighlightsSection({
             </span>
           </>
         }
-        supporting={content.supporting}
       />
 
       <div className="mt-14 grid gap-5 md:grid-cols-2">

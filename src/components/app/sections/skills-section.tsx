@@ -30,11 +30,15 @@ export function SkillsSection({ skillGroups }: { skillGroups: SkillGroup[] }) {
           }
         />
 
-        <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-5 md:auto-rows-[17rem] md:grid-cols-2 lg:grid-cols-3">
           {visibleGroups.map((group, index) => (
-            <Reveal key={group.slug} delay={index * 0.05}>
-              <article className="rounded-[var(--app-radius-xl)] border border-app-border bg-app-surface-card p-6 shadow-app-xs transition duration-300 hover:-translate-y-1 hover:shadow-app-md">
-                <div className="flex min-h-36 flex-col">
+            <Reveal
+              key={group.title}
+              className="relative z-0 h-full hover:z-20 focus-within:z-20"
+              delay={index * 0.05}
+            >
+              <article className="flex h-full min-h-[17rem] flex-col rounded-[var(--app-radius-xl)] border border-app-border bg-app-surface-card p-6 shadow-app-xs transition duration-300 hover:-translate-y-1 hover:shadow-app-md md:min-h-0">
+                <div className="flex h-full flex-col">
                   <h3 className="text-xl font-semibold tracking-tight text-app-foreground">
                     {group.title}
                   </h3>
@@ -42,9 +46,9 @@ export function SkillsSection({ skillGroups }: { skillGroups: SkillGroup[] }) {
                     {group.summary}
                   </p>
                   <div className="mt-auto flex flex-wrap gap-3 pt-6">
-                    {group.skills.slice(0, 6).map((skill, skillIndex) => (
+                    {group.skills.map((skill, skillIndex) => (
                       <SkillIcon
-                        key={skill.slug}
+                        key={skill.title}
                         skill={skill}
                         delay={index * 0.05 + skillIndex * 0.04}
                       />
@@ -73,7 +77,6 @@ function SkillIcon({
   return (
     <motion.span
       ref={ref}
-      title={`${skill.title}: ${skill.summary}`}
       aria-label={`${skill.title}: ${skill.summary}`}
       className="group/icon relative flex size-11 items-center justify-center rounded-full border border-app-border bg-app-surface-muted text-app-muted transition duration-200 hover:scale-105 hover:bg-app-surface-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-app-accent-green"
       tabIndex={0}
