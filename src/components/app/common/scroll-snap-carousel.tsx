@@ -1,55 +1,48 @@
 "use client";
 
-import { Children, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
-function useOnePassCarousel({
-  activeIndex,
-  delayMs = 4200,
-  enabled,
-  itemCount,
-  onSelect,
-}: {
-  activeIndex: number;
-  delayMs?: number;
-  enabled: boolean;
-  itemCount: number;
-  onSelect: (index: number) => void;
-}) {
-  const [hasCompletedPass, setHasCompletedPass] = useState(false);
-  const isComplete = itemCount <= 1 || hasCompletedPass;
+type CarouselLayout = "focus" | "writing";
 
-  useEffect(() => {
-    if (!enabled) return;
-    if (isComplete || itemCount <= 1) return;
+export type CarouselSlide = {
+  content: ReactNode;
+  id: string;
+  label: string;
+};
 
-    const timeoutId = window.setTimeout(() => {
-      if (activeIndex >= itemCount - 1) {
-        setHasCompletedPass(true);
-        return;
-      }
-
-      const nextIndex = activeIndex + 1;
-      onSelect(nextIndex);
-
-      if (nextIndex >= itemCount - 1) {
-        setHasCompletedPass(true);
-      }
-    }, delayMs);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [activeIndex, delayMs, enabled, isComplete, itemCount, onSelect]);
-}
+const layoutClasses: Record<
+  CarouselLayout,
+  {
+    controlsVariant: "light" | "dark";
+    item: string;
+    scroller: string;
+  }
+> = {
+  focus: {
+    controlsVariant: "dark",
+    item: "min-w-[82vw] snap-center md:min-w-[520px]",
+    scroller:
+      "mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto px-[calc((100%-min(82vw,520px))/2)] py-3 [scrollbar-width:none] md:px-[calc((100%-520px)/2)] [&::-webkit-scrollbar]:hidden",
+  },
+  writing: {
+    controlsVariant: "light",
+    item:
+      "h-[30rem] min-w-[calc(100vw-4rem)] snap-center snap-always md:h-[32rem] md:min-w-[420px] lg:min-w-[460px] xl:min-w-[calc((100vw-7rem)/3)] xl:snap-start",
+    scroller:
+      "mt-14 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-8 pb-6 [scrollbar-width:none] md:px-[calc((100%-420px)/2)] lg:px-[calc((100%-460px)/2)] xl:gap-4 xl:px-[max(2.5rem,calc((100vw-72rem)/2+2.5rem))] [&::-webkit-scrollbar]:hidden",
+  },
+};
 
 function CarouselDots({
   activeIndex,
-  dotLabels,
   onSelect,
+  slides,
   variant = "light",
 }: {
   activeIndex: number;
-  dotLabels: string[];
   onSelect: (index: number) => void;
+  slides: readonly CarouselSlide[];
   variant?: "light" | "dark";
 }) {
   const isDark = variant === "dark";
@@ -63,9 +56,9 @@ function CarouselDots({
       aria-label="Carousel slide controls"
     >
       <div className="flex items-center gap-2">
-        {dotLabels.map((label, index) => (
+        {slides.map((slide, index) => (
           <button
-            key={label}
+            key={slide.id}
             type="button"
             className={[
               "h-2 rounded-full transition-all duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
@@ -81,7 +74,7 @@ function CarouselDots({
                 : "focus-visible:outline-app-accent-green",
             ].join(" ")}
             onClick={() => onSelect(index)}
-            aria-label={`Show ${label}`}
+            aria-label={`Show ${slide.label}`}
             aria-current={activeIndex === index ? "true" : undefined}
           />
         ))}
@@ -91,32 +84,24 @@ function CarouselDots({
 }
 
 export function ScrollSnapCarousel({
-  autoPlay = false,
   ariaLabel,
-  children,
   controlsLabel,
-  controlsVariant = "light",
-  dotLabels,
-  itemClassName,
-  scrollerClassName,
+  layout,
+  slides,
 }: {
-  autoPlay?: boolean;
   ariaLabel: string;
-  children: ReactNode;
   controlsLabel: string;
-  controlsVariant?: "light" | "dark";
-  dotLabels: string[];
-  itemClassName: string;
-  scrollerClassName: string;
+  layout: CarouselLayout;
+  slides: readonly CarouselSlide[];
 }) {
-  const items = Children.toArray(children);
+  const classes = layoutClasses[layout];
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const scrollToItem = useCallback(
     (index: number) => {
       const scroller = scrollerRef.current;
-      const boundedIndex = Math.min(Math.max(index, 0), items.length - 1);
+      const boundedIndex = Math.min(Math.max(index, 0), slides.length - 1);
       const item = scroller?.querySelector<HTMLElement>(
         `[data-carousel-index="${boundedIndex}"]`,
       );
@@ -129,15 +114,8 @@ export function ScrollSnapCarousel({
       });
       setActiveIndex(boundedIndex);
     },
-    [items.length],
+    [slides.length],
   );
-
-  useOnePassCarousel({
-    activeIndex,
-    enabled: autoPlay,
-    itemCount: items.length,
-    onSelect: scrollToItem,
-  });
 
   function handleScroll() {
     const scroller = scrollerRef.current;
@@ -163,27 +141,30 @@ export function ScrollSnapCarousel({
     <>
       <div
         ref={scrollerRef}
-        className={scrollerClassName}
+        className={classes.scroller}
         onScroll={handleScroll}
         aria-label={ariaLabel}
       >
-        {items.map((item, index) => (
+        {slides.map((slide, index) => (
           <div
-            key={dotLabels[index] ?? index}
+            key={slide.id}
             data-carousel-index={index}
-            className={itemClassName}
+            className={classes.item}
           >
-            {item}
+            {slide.content}
           </div>
         ))}
       </div>
 
-      <div className="mt-4 flex justify-center" aria-label={controlsLabel}>
+      <div
+        className="mt-4 flex justify-center"
+        aria-label={controlsLabel}
+      >
         <CarouselDots
           activeIndex={activeIndex}
-          dotLabels={dotLabels}
           onSelect={scrollToItem}
-          variant={controlsVariant}
+          slides={slides}
+          variant={classes.controlsVariant}
         />
       </div>
     </>
