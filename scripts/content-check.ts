@@ -27,6 +27,4 @@ console.log(`- Items: ${content.items.length}`);
 console.log(`- Field Notes: ${content.fieldNotes.length}`);
 console.log(`- Highlights: ${content.highlights.highlights.length}`);
 console.log(`- Skill Groups: ${content.skillGroups.length}`);
-console.log(`- Current Quests: ${content.currentQuests.length}`);
 console.log(`- Experience Phases: ${content.experiencePhases.length}`);
-console.log("- Status HUD: 1");
