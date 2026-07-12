@@ -9,17 +9,7 @@ export function getExternalLink(
 }
 
 export function getProjectSourceHref(item: ItemDocument) {
-  const explicitSource = item.links.find((link) =>
+  return item.links.find((link) =>
     /source|github/i.test(link.label),
-  );
-
-  if (explicitSource) {
-    return explicitSource.href;
-  }
-
-  if (item.artifact.type === "source") {
-    return item.artifact.href;
-  }
-
-  return undefined;
+  )?.href;
 }

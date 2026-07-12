@@ -67,20 +67,6 @@ export function validateAllContent() {
 
     checkUniqueSlugs(issues, "items", content.items.map((item) => item.slug));
 
-    for (const item of content.items) {
-      if (item.placeholder && item.status !== "draft") {
-        addIssue(issues, "items", `${item.slug} is placeholder content but is not draft.`);
-      }
-
-      if (!item.placeholder && item.status === "published") {
-        for (const [key, value] of Object.entries(item.proof)) {
-          if (value.toLowerCase().includes("placeholder")) {
-            addIssue(issues, "items", `${item.slug} has placeholder text in proof.${key}.`);
-          }
-        }
-      }
-    }
-
     try {
       const homeSelection = resolveHomeSelection(content);
 

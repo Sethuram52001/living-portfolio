@@ -21,36 +21,31 @@ export const linkSchema = z.object({
 
 export const publicationStatusSchema = z.enum(["draft", "published"]);
 
-export const itemArtifactSchema = z.object({
-  type: z.enum(["demo", "source", "screenshot", "video", "write-up"]),
-  href: z.string().min(1),
-});
-
-export const itemProofSchema = z.object({
-  motivation: z.string().min(1),
-  learned: z.string().min(1),
-  mattered: z.string().min(1),
-});
-
 export const itemFrontmatterSchema = z.object({
   slug: slugSchema,
   title: z.string().min(1),
-  status: publicationStatusSchema,
-  placeholder: z.boolean(),
   summary: z.string().min(1),
+  motive: z.string().min(1).optional(),
   tech: z.array(z.string().min(1)).default([]),
-  artifact: itemArtifactSchema,
   previewImage: z.string().min(1).optional(),
-  proof: itemProofSchema,
+  highlights: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        points: z.array(z.string().min(1)).min(1),
+      }),
+    )
+    .min(1),
   links: z.array(linkSchema).default([]),
 });
 
-export const fieldNoteCategorySchema = z.enum(["DSA", "technical", "personal"]);
+export const fieldNoteCategorySchema = z.enum(["DSA", "Technical", "Personal"]);
 
 export const fieldNoteFrontmatterSchema = z.object({
   title: z.string().min(1),
   status: publicationStatusSchema,
   summary: z.string().min(1),
+  motive: z.string().min(1).optional(),
   date: dateSchema,
   category: fieldNoteCategorySchema,
   externalUrl: z.string().min(1).optional(),
@@ -95,7 +90,13 @@ export const homeSelectionSchema = z.object({
   }),
 });
 
-export const highlightAccentSchema = z.enum(["emerald", "blue", "amber"]);
+export const highlightAccentSchema = z.enum([
+  "emerald",
+  "blue",
+  "amber",
+  "orange",
+  "red",
+]);
 
 export const highlightCardSchema = z.object({
   title: z.string().min(1),
@@ -106,6 +107,7 @@ export const highlightCardSchema = z.object({
 export const highlightsFrontmatterSchema = z.object({
   title: z.string().min(1),
   mutedTitle: z.string().min(1),
+  supporting: z.string().min(1),
   highlights: z.array(highlightCardSchema).min(1),
 });
 
