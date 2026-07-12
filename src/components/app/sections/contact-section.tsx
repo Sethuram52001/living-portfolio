@@ -79,7 +79,7 @@ export function ContactSection({
           <h2 className="mt-4 max-w-3xl text-4xl font-bold leading-tight tracking-tight text-app-foreground md:text-5xl">
             Open to what&apos;s next.{" "}
             <span className="text-app-muted">
-              Let&apos;s build something together.
+              Let&apos;s build something meaningful.
             </span>
           </h2>
         </Reveal>
@@ -89,10 +89,11 @@ export function ContactSection({
             <div className="grid gap-10 p-8 md:p-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start lg:gap-12 lg:p-12">
               <div>
                 <p className="max-w-lg text-lg leading-relaxed text-app-muted">
-                  Open to backend roles, thoughtful product teams, and dev
-                  collaborations — email is the best place to start. I value
-                  teams that care about reliability, clarity, and thoughtful
-                  engineering.
+                  I&apos;m open to software engineering roles, thoughtful product
+                  teams, and developer collaborations. I&apos;m especially drawn
+                  to teams that value reliability, clarity, ownership, and
+                  well-reasoned engineering. Reach out by email or LinkedIn,
+                  and I&apos;ll try to respond as soon as possible.
                 </p>
 
                 {contactChannels.length > 0 ? (

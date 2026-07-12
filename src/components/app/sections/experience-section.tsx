@@ -25,10 +25,7 @@ export function ExperienceSection({ phases }: { phases: ExperiencePhase[] }) {
           Experience
         </p>
         <h2 className="mt-4 max-w-xl text-4xl font-bold leading-tight tracking-tight text-app-foreground md:text-5xl">
-          Production systems,{" "}
-          <span className="text-app-muted">
-            fintech workflows, and the path&nbsp;into backend work.
-          </span>
+          The journey from learning computer science to shipping production systems.
         </h2>
       </Reveal>
 

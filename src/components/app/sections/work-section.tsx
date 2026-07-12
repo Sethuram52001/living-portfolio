@@ -14,13 +14,13 @@ export function WorkSection({ items }: { items: ItemDocument[] }) {
             eyebrow="Selected work"
             title={
               <>
-                Project highlights,{" "}
+                Built from a love of exploring ideas{" "}
                 <span className="text-app-muted">
-                  curated like a product tour.
+                  and making them tangible.
                 </span>
               </>
             }
-            supporting="A tighter cut of selected projects with visual proof first, source links close by, and enough context to decide what to inspect."
+            supporting="These projects reflect how I learn best: by building, experimenting, and turning concepts into interactive experiences that deepen my understanding."
           />
         </div>
       </div>

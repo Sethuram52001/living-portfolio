@@ -89,8 +89,12 @@
   --app-accent-green-soft: rgba(16, 185, 129, 0.08);
   --app-accent-amber: #f59e0b;
   --app-accent-amber-soft: rgba(245, 158, 11, 0.08);
+  --app-accent-orange: #f97316;
+  --app-accent-orange-soft: rgba(249, 115, 22, 0.08);
   --app-accent-blue: #3b82f6;
   --app-accent-blue-soft: rgba(59, 130, 246, 0.08);
+  --app-accent-red: #ef4444;
+  --app-accent-red-soft: rgba(239, 68, 68, 0.08);
   --app-ink: #1e293b;
   --app-border: rgba(0, 0, 0, 0.08);
   --app-border-strong: rgba(0, 0, 0, 0.15);
@@ -161,8 +165,12 @@
   --color-app-accent-green-soft: var(--app-accent-green-soft);
   --color-app-accent-amber: var(--app-accent-amber);
   --color-app-accent-amber-soft: var(--app-accent-amber-soft);
+  --color-app-accent-orange: var(--app-accent-orange);
+  --color-app-accent-orange-soft: var(--app-accent-orange-soft);
   --color-app-accent-blue: var(--app-accent-blue);
   --color-app-accent-blue-soft: var(--app-accent-blue-soft);
+  --color-app-accent-red: var(--app-accent-red);
+  --color-app-accent-red-soft: var(--app-accent-red-soft);
   --color-app-ink: var(--app-ink);
   --color-app-border: var(--app-border);
   --color-app-border-strong: var(--app-border-strong);

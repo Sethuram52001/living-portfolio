@@ -12,6 +12,8 @@ const accentClassNames = {
   amber: "bg-app-accent-amber",
   blue: "bg-app-accent-blue",
   emerald: "bg-app-accent-green",
+  orange: "bg-app-accent-orange",
+  red: "bg-app-accent-red",
 } satisfies Record<Highlight["accent"], string>;
 
 function HighlightCard({
@@ -72,6 +74,7 @@ export function HighlightsSection({
             </span>
           </>
         }
+        supporting={content.supporting}
       />
 
       <div className="mt-14 grid gap-5 md:grid-cols-2">

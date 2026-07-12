@@ -22,9 +22,9 @@ export function SkillsSection({ skillGroups }: { skillGroups: SkillGroup[] }) {
           eyebrow="Toolkit"
           title={
             <>
-              A backend core,{" "}
+              Backend at the core, {" "}
               <span className="text-app-muted">
-                with enough breadth to build the full surface.
+                with the breadth to build across the product.
               </span>
             </>
           }

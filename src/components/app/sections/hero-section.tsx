@@ -38,7 +38,7 @@ export function HeroSection() {
       >
         <div className="max-w-3xl">
           <Reveal>
-            <p className="text-sm font-medium tracking-wide text-app-accent-green">
+            <p className="text-sm font-medium tracking-wide uppercase text-app-accent-green">
               About
             </p>
           </Reveal>
@@ -53,13 +53,12 @@ export function HeroSection() {
             <div className="mt-8 max-w-2xl space-y-5 text-xl leading-relaxed text-app-muted md:text-2xl md:leading-relaxed">
               <p>
                 I&apos;m a software engineer with over three years of experience
-                building reliable distributed systems in the fintech space.
-                I&apos;ve worked on scalable microservices across credit
-                management, billing, reconciliation, and IAM services with
-                fine-grained access control.
+                building reliable distributed systems in fintech. I&apos;ve worked
+                on scalable microservices across credit management, billing,
+                reconciliation, and IAM with fine-grained access control.
               </p>
               <p>
-                Beyond building systems, I love problem solving and technical
+                Beyond building systems, I love problem-solving and technical
                 writing. I enjoy breaking down complex engineering ideas, from
                 system design patterns to language internals, because I believe
                 explaining something clearly is one of the best ways to truly
