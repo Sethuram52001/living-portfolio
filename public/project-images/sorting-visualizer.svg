@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1348" height="1218" viewBox="0 0 1348 1218">
-  <rect width="1348" height="1218" fill="#EDF7F0"/>
-  <line x1="104" y1="974" x2="1243" y2="974" stroke="#DCE6DF" stroke-width="2"/>
-  <g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1348" height="1600" viewBox="0 0 1348 1600">
+  <rect width="1348" height="1600" fill="#EDF7F0"/>
+  <line x1="104" y1="974" x2="1243" y2="974" stroke="#DCE6DF" stroke-width="2" transform="translate(0 191)"/>
+  <g transform="translate(0 191)">
     <rect x="105" y="919" width="35" height="55" rx="8" fill="#3E73CA"/><rect x="162" y="888" width="35" height="86" rx="8" fill="#3E73CA"/><rect x="219" y="852" width="35" height="122" rx="8" fill="#3E73CA"/><rect x="276" y="820" width="35" height="154" rx="8" fill="#3E73CA"/><rect x="333" y="784" width="35" height="190" rx="8" fill="#3E73CA"/><rect x="390" y="748" width="35" height="226" rx="8" fill="#3E73CA"/><rect x="447" y="727" width="35" height="247" rx="8" fill="#E98748"/><rect x="504" y="696" width="35" height="278" rx="8" fill="#64BD90"/><rect x="561" y="660" width="35" height="314" rx="8" fill="#64BD90"/><rect x="618" y="629" width="35" height="345" rx="8" fill="#64BD90"/><rect x="675" y="592" width="35" height="382" rx="8" fill="#64BD90"/><rect x="732" y="551" width="35" height="423" rx="8" fill="#64BD90"/><rect x="789" y="515" width="35" height="459" rx="8" fill="#E98748"/><rect x="846" y="478" width="35" height="496" rx="8" fill="#323334"/><rect x="903" y="437" width="35" height="537" rx="8" fill="#323334"/><rect x="960" y="401" width="35" height="573" rx="8" fill="#323334"/><rect x="1017" y="364" width="35" height="610" rx="8" fill="#323334"/><rect x="1074" y="328" width="35" height="646" rx="8" fill="#323334"/><rect x="1131" y="297" width="35" height="677" rx="8" fill="#323334"/><rect x="1188" y="266" width="35" height="708" rx="8" fill="#323334"/>
   </g>
 </svg>

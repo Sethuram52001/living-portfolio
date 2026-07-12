@@ -16,7 +16,8 @@ export function ProjectFeatureCard({
 }) {
   const sourceHref = getProjectSourceHref(item);
   const cardClassName = [
-    "group/card grid min-h-[calc(100svh-4rem)] w-full overflow-hidden rounded-[2rem] border border-black/[0.04] bg-white shadow-app-xs transition duration-300 lg:min-h-[calc(100svh-5rem)] lg:grid-cols-2",
+    "group/card grid min-h-[calc(100svh-4rem)] w-full overflow-hidden rounded-[2rem] border border-black/[0.04] bg-white shadow-app-xs transition duration-300 lg:min-h-[calc(100svh-5rem)]",
+    imageFirst ? "lg:grid-cols-[3fr_2fr]" : "lg:grid-cols-[2fr_3fr]",
     sourceHref
       ? "cursor-pointer hover:-translate-y-1 hover:shadow-app-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-app-accent-green"
       : "cursor-default",
@@ -29,26 +30,20 @@ export function ProjectFeatureCard({
     "flex min-h-0 flex-col p-6 sm:p-10 lg:min-h-full lg:p-14 xl:p-16",
     imageFirst ? "lg:order-2" : "lg:order-1",
   ].join(" ");
-  const proofPoints = [
-    item.proof.motivation,
-    item.proof.learned,
-    item.proof.mattered,
-  ];
+  const highlights = item.highlights;
 
   const content = (
     <>
       <div className={imageClassName} data-project-feature-image>
         {item.previewImage ? (
-          <div className="absolute inset-4 flex items-center justify-center sm:inset-6 lg:inset-8">
-            <Image
-              src={item.previewImage}
-              alt={`${item.title} project preview`}
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-contain transition duration-700 group-hover/card:scale-[1.03]"
-              priority={index === 0}
-            />
-          </div>
+          <Image
+            src={item.previewImage}
+            alt={`${item.title} project preview`}
+            fill
+            sizes="(min-width: 1024px) 60vw, 100vw"
+            className="object-cover object-center transition duration-700 group-hover/card:scale-[1.03]"
+            priority={index === 0}
+          />
         ) : (
           <div className="flex size-full items-center justify-center text-sm font-medium text-app-subtle">
             Preview coming soon
@@ -65,25 +60,34 @@ export function ProjectFeatureCard({
             {item.summary}
           </p>
 
-          <ul className="mt-5 space-y-2.5 md:mt-8 md:space-y-4">
-            {proofPoints.map((point) => (
-              <li
-                key={point}
-                className="flex gap-3 text-xs leading-relaxed text-app-muted md:text-[15px]"
-              >
-                <span
-                  className="mt-2 block size-1.5 shrink-0 rounded-full bg-app-foreground"
-                  aria-hidden="true"
-                />
-                <span>{point}</span>
-              </li>
+          <div className="mt-5 space-y-5 md:mt-8 md:space-y-6">
+            {highlights.map((group) => (
+              <div key={group.title}>
+                <h4 className="text-xs font-semibold tracking-[0.14em] text-app-subtle uppercase">
+                  {group.title}
+                </h4>
+                <ul className="mt-2.5 space-y-2.5 md:space-y-3">
+                  {group.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-3 text-xs leading-relaxed text-app-muted md:text-[15px]"
+                    >
+                      <span
+                        className="mt-2 block size-1.5 shrink-0 rounded-full bg-app-foreground"
+                        aria-hidden="true"
+                      />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
         <div className="mt-auto pt-6 md:pt-10">
           <div className="flex flex-wrap gap-2">
-            {item.tech.slice(0, 5).map((tech) => (
+            {item.tech.map((tech) => (
               <span
                 key={tech}
                 className="rounded-full border border-black/[0.05] bg-app-surface-muted px-2.5 py-1 text-xs font-medium text-app-muted"
