@@ -21,16 +21,17 @@ const layoutClasses: Record<
 > = {
   focus: {
     controlsVariant: "dark",
-    item: "min-w-[82vw] snap-center md:min-w-[520px]",
+    item:
+      "min-w-[calc(100vw-3rem)] snap-center sm:min-w-[22rem] md:min-w-[520px]",
     scroller:
-      "mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto px-[calc((100%-min(82vw,520px))/2)] py-3 [scrollbar-width:none] md:px-[calc((100%-520px)/2)] [&::-webkit-scrollbar]:hidden",
+      "mt-6 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 py-3 [scrollbar-width:none] sm:px-[calc((100%-22rem)/2)] md:px-[calc((100%-520px)/2)] [&::-webkit-scrollbar]:hidden",
   },
   writing: {
     controlsVariant: "light",
     item:
       "h-[30rem] min-w-[calc(100vw-4rem)] snap-center snap-always md:h-[32rem] md:min-w-[420px] lg:min-w-[460px] xl:min-w-[calc((100vw-7rem)/3)] xl:snap-start",
     scroller:
-      "mt-14 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-8 pb-6 [scrollbar-width:none] md:px-[calc((100%-420px)/2)] lg:px-[calc((100%-460px)/2)] xl:gap-4 xl:px-[max(2.5rem,calc((100vw-72rem)/2+2.5rem))] [&::-webkit-scrollbar]:hidden",
+      "mt-14 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-10 pb-6 [scrollbar-width:none] md:px-[calc((100%-420px)/2)] lg:px-[calc((100%-460px)/2)] xl:gap-4 xl:px-[max(3.5rem,calc((100vw-72rem)/2+3.5rem))] [&::-webkit-scrollbar]:hidden",
   },
 };
 
