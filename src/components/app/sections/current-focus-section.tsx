@@ -3,7 +3,6 @@
 import { motion } from "motion/react";
 import type { FieldNoteDocument, ItemDocument } from "@/lib/content/schemas";
 import { getProjectSourceHref } from "../common/links";
-import { ScrollSnapCarousel } from "../common/scroll-snap-carousel";
 
 type CurrentFocusCard = {
   category: "Building" | "Writing" | "Learning";
@@ -25,32 +24,26 @@ export function CurrentFocusSection({
   const cards: CurrentFocusCard[] = [
     {
       category: "Building",
-      detail: buildingItem.summary,
+      detail: buildingItem.motive ?? "Exploring a more understandable way to work with unfamiliar codebases.",
       href: getProjectSourceHref(buildingItem),
-      summary: buildingItem.proof.motivation,
+      summary: buildingItem.summary,
       title: buildingItem.title,
     },
     {
       category: "Writing",
-      detail: "Latest draft field note.",
+      detail: writingNote.motive ?? "Developing the next field note.",
       href: writingNote.externalUrl,
       summary: writingNote.summary,
       title: writingNote.title,
     },
     {
       category: "Learning",
-      detail: learningItem.summary,
+      detail: learningItem.motive ?? "Exploring system design through focused exercises and implementation.",
       href: getProjectSourceHref(learningItem),
-      summary: learningItem.proof.motivation,
+      summary: learningItem.summary,
       title: learningItem.title,
     },
   ];
-  const slides = cards.map((card) => ({
-    id: card.category,
-    label: card.category,
-    content: <CurrentFocusCardView card={card} />,
-  }));
-
   return (
     <section
       id="current-build"
@@ -67,26 +60,23 @@ export function CurrentFocusSection({
 
       <div className="relative mx-auto max-w-6xl">
         <div className="max-w-3xl">
-          <p className="text-sm font-medium tracking-[0.18em] text-white/45 uppercase">
+          <p className="text-sm font-medium tracking-wide text-app-accent-green uppercase">
             Currently
           </p>
           <h2 className="mt-5 text-4xl font-bold leading-[1.04] tracking-tight md:text-5xl lg:text-6xl">
-            Building, writing, and learning in public.
+            What&apos;s taking shape.
           </h2>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/55">
-            A compact pulse of what is moving right now, without turning the
-            portfolio into a status dashboard.
+            A view into the projects and ideas I&apos;m actively building,
+            exploring, and refining.
           </p>
         </div>
       </div>
 
-      <div className="relative left-1/2 w-screen -translate-x-1/2">
-        <ScrollSnapCarousel
-          ariaLabel="Current focus highlights"
-          controlsLabel="Current focus position"
-          layout="focus"
-          slides={slides}
-        />
+      <div className="relative mx-auto mt-14 grid max-w-6xl gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {cards.map((card) => (
+          <CurrentFocusCardView key={card.category} card={card} />
+        ))}
       </div>
     </section>
   );
@@ -124,7 +114,7 @@ function CurrentFocusCardView({ card }: { card: CurrentFocusCard }) {
       </p>
       <div className="mt-auto pt-8">
         <p className="text-xs font-medium tracking-[0.18em] text-white/40 uppercase">
-          Focus
+          Motive
         </p>
         <p className="mt-2 text-sm leading-relaxed text-white/65">
           {card.detail}
@@ -142,11 +132,12 @@ function CurrentFocusCardView({ card }: { card: CurrentFocusCard }) {
   );
 
   const className =
-    "group flex h-96 w-full flex-col rounded-3xl border border-white/[0.06] bg-[#1d1d1f] p-8 shadow-app-sm transition duration-300 hover:border-white/15 lg:h-[25rem] lg:p-10";
+    "group flex min-h-[32rem] w-full flex-col rounded-3xl border border-white/[0.06] bg-[#1d1d1f] p-6 shadow-app-sm transition duration-300 hover:border-white/15 sm:min-h-[30rem] sm:p-8 lg:min-h-[26rem] lg:p-10";
 
   if (!card.href) {
     return (
       <motion.article
+        data-current-focus-card
         className={className}
         initial={{ opacity: 0, y: 24, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -160,6 +151,7 @@ function CurrentFocusCardView({ card }: { card: CurrentFocusCard }) {
 
   return (
     <motion.a
+      data-current-focus-card
       href={card.href}
       target="_blank"
       rel="noreferrer"
