@@ -2,23 +2,21 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { z } from "zod";
-import { experiencePhases } from "../../../content/experience";
+import { homeSelection } from "../../../content/home";
 import { skillGroups } from "../../../content/skills";
-import { statusHud } from "../../../content/status";
-import { currentQuests } from "../../../content/quests";
 import {
-  currentQuestSchema,
   experiencePhaseSchema,
-  fieldNoteDocumentSchema,
-  itemDocumentSchema,
+  fieldNoteFrontmatterSchema,
+  highlightsFrontmatterSchema,
+  homeSelectionSchema,
+  itemFrontmatterSchema,
   skillGroupSchema,
-  statusHudSchema,
-  type CurrentQuest,
   type ExperiencePhase,
   type FieldNoteDocument,
+  type HighlightsDocument,
+  type HomeSelection,
   type ItemDocument,
   type SkillGroup,
-  type StatusHud,
 } from "./schemas";
 
 const rootDir = process.cwd();
@@ -42,44 +40,51 @@ function parseMdxCollection<T>(
       const fullPath = path.join(fullDirectory, file);
       const source = fs.readFileSync(fullPath, "utf8");
       const parsed = matter(source);
-      return schema.parse({
-        ...parsed.data,
-        body: parsed.content.trim(),
-      });
+      return schema.parse(parsed.data);
     });
 }
 
 export function loadItems(): ItemDocument[] {
-  return parseMdxCollection("items", itemDocumentSchema);
+  return parseMdxCollection("items", itemFrontmatterSchema);
 }
 
 export function loadFieldNotes(): FieldNoteDocument[] {
-  return parseMdxCollection("field-notes", fieldNoteDocumentSchema);
+  return parseMdxCollection("field-notes", fieldNoteFrontmatterSchema);
+}
+
+export function loadHighlights(): HighlightsDocument {
+  const documents = parseMdxCollection("highlights", highlightsFrontmatterSchema);
+
+  if (documents.length !== 1) {
+    throw new Error(
+      `Expected exactly one highlights document, found ${documents.length}.`,
+    );
+  }
+
+  return documents[0];
 }
 
 export function loadSkillGroups(): SkillGroup[] {
   return z.array(skillGroupSchema).parse(skillGroups);
 }
 
-export function loadCurrentQuests(): CurrentQuest[] {
-  return z.array(currentQuestSchema).parse(currentQuests);
-}
-
 export function loadExperiencePhases(): ExperiencePhase[] {
-  return z.array(experiencePhaseSchema).parse(experiencePhases);
+  return parseMdxCollection("experience", experiencePhaseSchema).sort(
+    (left, right) => left.order - right.order,
+  );
 }
 
-export function loadStatusHud(): StatusHud {
-  return statusHudSchema.parse(statusHud);
+export function loadHomeSelection(): HomeSelection {
+  return homeSelectionSchema.parse(homeSelection);
 }
 
 export function loadAllContent() {
   return {
     items: loadItems(),
     fieldNotes: loadFieldNotes(),
+    highlights: loadHighlights(),
     skillGroups: loadSkillGroups(),
-    currentQuests: loadCurrentQuests(),
     experiencePhases: loadExperiencePhases(),
-    statusHud: loadStatusHud(),
+    homeSelection: loadHomeSelection(),
   };
 }

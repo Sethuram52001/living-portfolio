@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { PremiumPortfolioSpa } from "@/components/premium-spa/premium-portfolio-spa";
+import { PortfolioApp } from "@/components/app/portfolio-app";
 import { siteConfig } from "@/config/site";
-import {
-  loadCurrentQuests,
-  loadExperiencePhases,
-  loadFieldNotes,
-  loadItems,
-  loadSkillGroups,
-  loadStatusHud,
-} from "@/lib/content/loaders";
+import { loadAllContent } from "@/lib/content/loaders";
+import { resolveHomeSelection } from "@/lib/content/home-selection";
 import { createPageMetadata } from "@/lib/site/metadata";
 
 export const metadata: Metadata = createPageMetadata({
@@ -19,15 +13,16 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function Home() {
+  const content = loadAllContent();
+
   return (
-    <PremiumPortfolioSpa
-      currentQuests={loadCurrentQuests()}
-      experiencePhases={loadExperiencePhases()}
+    <PortfolioApp
+      experiencePhases={content.experiencePhases}
       externalLinks={siteConfig.externalLinks}
-      fieldNotes={loadFieldNotes()}
-      items={loadItems()}
-      skillGroups={loadSkillGroups()}
-      statusHud={loadStatusHud()}
+      fieldNotes={content.fieldNotes}
+      highlights={content.highlights}
+      homeSelection={resolveHomeSelection(content)}
+      skillGroups={content.skillGroups}
     />
   );
 }

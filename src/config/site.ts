@@ -35,6 +35,12 @@ export const siteConfig = {
       placeholder: false,
     },
     {
+      label: "Medium",
+      href: "https://medium.com/@sethuram52001",
+      description: "Medium writing profile.",
+      placeholder: false,
+    },
+    {
       label: "Email",
       href: "mailto:sethuramprabha@gmail.com",
       description: "Official email.",

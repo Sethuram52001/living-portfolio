@@ -1,27 +1,17 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
-const SESSION_KEY = "pm-splash-seen";
-
-/* ------------------------------------------------------------------ */
-/* Letter-by-letter stagger config                                     */
-/* ------------------------------------------------------------------ */
-
+const SESSION_KEY = "app-splash-seen";
 const nameLetters = "Sethuram".split("");
 const LETTER_STAGGER = 0.06;
 const LETTER_DURATION = 0.5;
 const NAME_START = 0.3;
 const SUBTITLE_START = NAME_START + nameLetters.length * LETTER_STAGGER + 0.2;
 const HOLD_DURATION = 0.8;
-const EXIT_START =
-  SUBTITLE_START + LETTER_DURATION + HOLD_DURATION;
+const EXIT_START = SUBTITLE_START + LETTER_DURATION + HOLD_DURATION;
 const TOTAL_DURATION = EXIT_START + 0.6;
-
-/* ------------------------------------------------------------------ */
-/* Component                                                           */
-/* ------------------------------------------------------------------ */
 
 export function SplashIntro({ children }: { children: React.ReactNode }) {
   const [showSplash, setShowSplash] = useState<boolean | null>(null);
@@ -44,15 +34,12 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
     sessionStorage.setItem(SESSION_KEY, "1");
   }, []);
 
-  // Auto-dismiss after animation completes
   useEffect(() => {
     if (!showSplash) return;
     const timer = setTimeout(dismiss, TOTAL_DURATION * 1000);
     return () => clearTimeout(timer);
   }, [showSplash, dismiss]);
 
-  // SSR / hydration: render children immediately, overlay on top
-  // null = still checking sessionStorage (avoid flash)
   if (showSplash === null) {
     return (
       <>
@@ -80,7 +67,6 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
               ease: [0.22, 1, 0.36, 1],
             }}
           >
-            {/* Skip button */}
             <motion.button
               type="button"
               onClick={dismiss}
@@ -93,7 +79,6 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
               Skip
             </motion.button>
 
-            {/* Name — letter by letter */}
             <div className="flex select-none" aria-label="Sethuram">
               {nameLetters.map((letter, i) => (
                 <motion.span
@@ -120,10 +105,9 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
               ))}
             </div>
 
-            {/* Subtitle */}
             <motion.p
               className="mt-5 text-sm font-medium tracking-widest uppercase md:text-base"
-              style={{ color: "var(--pm-accent-emerald)" }}
+              style={{ color: "var(--app-accent-green)" }}
               initial={{
                 opacity: 0,
                 y: 14,
@@ -143,10 +127,9 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
               Backend Engineer
             </motion.p>
 
-            {/* Decorative line — grows under subtitle */}
             <motion.div
               className="mt-6 h-px origin-center rounded-full"
-              style={{ backgroundColor: "var(--pm-accent-emerald)" }}
+              style={{ backgroundColor: "var(--app-accent-green)" }}
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: 64, opacity: 0.5 }}
               transition={{

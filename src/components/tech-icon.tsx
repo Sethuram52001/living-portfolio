@@ -135,7 +135,6 @@ const fallbackIconMap: Record<string, FallbackIconMeta> = {
   "java": { color: "#f97316", icon: CodeBracketIcon },
   "operating systems": { color: "#64748b", icon: CpuChipIcon },
   "problem solving": { color: "#8b5cf6", icon: PuzzlePieceIcon },
-  "reconciliation systems": { color: "#14b8a6", icon: ServerStackIcon },
   "retry and compensation flows": { color: "#f97316", icon: ArrowPathRoundedSquareIcon },
   "s3": { color: "#16a34a", icon: CircleStackIcon, title: "S3" },
   "sql": { color: "#2563eb", icon: CircleStackIcon, title: "SQL" },
