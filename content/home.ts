@@ -4,11 +4,11 @@ export const homeSelection = {
   selectedWorkSlugs: ["path-visualizer", "sorting-visualizer"],
   currentFocus: {
     building: {
-      itemSlug: "ai-code-analysis-tool",
+      itemSlug: "codelens",
     },
     writing: "latest-draft",
     learning: {
-      itemSlug: "system-design-notebook",
+      itemSlug: "system-design-compendium",
     },
   },
 } satisfies HomeSelectionInput;

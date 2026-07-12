@@ -5,13 +5,13 @@ position: Software Development Engineer
 dateRange:
   start: 2024-09
   end: 2026-04
-summary: Backend ownership across identity, billing, financial reporting, and AI-assisted reconciliation systems for a multi-tenant finance platform.
+summary: Owned and delivered core backend systems for a multi-tenant financial platform, spanning identity, billing, reporting, reconciliation, and AI-assisted workflows.
 fieldNotes:
-  - Designed and built a custom IAM service with multi-tenant isolation and fine-grained access control across 50+ sub-tenants and 150+ users.
-  - Built a high-throughput billing engine using asynchronous batch aggregation, eliminating database lock contention and reducing job execution time by 40%.
-  - Optimized billing calculations for files averaging 500k+ records, reducing P95 latency from 5s to under 1s through New Relic-guided indexing and query restructuring.
-  - Developed high-precision invoicing, credit, and multi-currency reporting engines with a client-configurable rule engine across 3 currencies.
-  - Built an AI-powered reconciliation prototype with Google ADK, FastAPI, and Celery, cutting prototype cycles from 2 weeks to 3 days.
+  - Designed and built a custom IAM service with tenant isolation and fine-grained access control.
+  - Built and optimized a high-throughput billing engine processing millions of records, using asynchronous batch aggregation, indexing, and query restructuring to reduce P95 latency from 5 seconds to under 1 second.
+  - Developed configurable credit, invoicing, and multi-currency reporting engines supporting multiple currencies, client-defined rules, and complex financial calculations.
+  - Built reconciliation workflows for large financial datasets, covering file ingestion, configurable matching, exception handling, and downstream reporting.
+  - Developed an AI-powered reconciliation prototype using Google ADK, FastAPI, and Celery, reducing the business team's average time to define and validate reconciliation logic from two weeks to three days.
 keyTech:
   - Go
   - PostgreSQL

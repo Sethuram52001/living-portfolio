@@ -3,7 +3,7 @@ import type { SkillGroupInput } from "@/lib/content/schemas";
 export const skillGroups = [
   {
     title: "Backend",
-    summary: "Languages and frameworks for APIs, services, and server-side applications.",
+    summary: "Languages and frameworks for building APIs, services, background jobs, and server-side systems.",
     order: 1,
     skills: [
       {
@@ -42,7 +42,7 @@ export const skillGroups = [
   },
   {
     title: "Frontend",
-    summary: "HTML, CSS, React, and Next.js for responsive web interfaces.",
+    summary: "Web technologies for building responsive interfaces and supporting end-to-end product development.",
     order: 2,
     skills: [
       {
@@ -64,8 +64,8 @@ export const skillGroups = [
     ],
   },
   {
-    title: "Database",
-    summary: "Databases and storage services for relational data, caching, and objects.",
+    title: "Data & Storage",
+    summary: "Databases, caches, and object storage for reliable persistence, fast access, and scalable data workflows.",
     order: 3,
     skills: [
       {
@@ -87,8 +87,8 @@ export const skillGroups = [
     ],
   },
   {
-    title: "Messaging And Async Infra",
-    summary: "Messaging and asynchronous patterns for decoupled systems.",
+    title: "Messaging & Async Systems",
+    summary: "Messaging tools and asynchronous patterns for decoupled workflows, background processing, and resilient communication.",
     order: 4,
     skills: [
       {
@@ -110,8 +110,8 @@ export const skillGroups = [
     ],
   },
   {
-    title: "Cloud And Infra",
-    summary: "Cloud platforms and tooling for deployment, serverless workloads, and collaboration.",
+    title: "Cloud & Infrastructure",
+    summary: "Cloud platforms and infrastructure tooling for deployment, containerization, serverless workloads, and delivery workflows.",
     order: 5,
     skills: [
       {
@@ -137,8 +137,8 @@ export const skillGroups = [
     ],
   },
   {
-    title: "System Design",
-    summary: "Patterns for designing reliable, distributed, and recoverable systems.",
+    title: "System Design Patterns",
+    summary: "Patterns for building reliable distributed systems with clear consistency, concurrency, recovery, and scaling strategies.",
     order: 6,
     skills: [
       {
