@@ -3,9 +3,16 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Reveal } from "../common/reveal";
+import type { HomeContent, SiteContent } from "@/lib/content/schemas";
+import { Reveal } from "../ui/reveal";
 
-export function HeroSection() {
+export function HeroSection({
+  content,
+  person,
+}: {
+  content: HomeContent["hero"];
+  person: SiteContent["person"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -29,31 +36,21 @@ export function HeroSection() {
           <div className="max-w-3xl">
             <Reveal>
               <p className="text-sm font-medium tracking-wide uppercase text-app-accent-green">
-                About
+                {content.eyebrow}
               </p>
             </Reveal>
 
             <Reveal delay={0.1}>
               <h1 className="mt-6 text-5xl font-bold leading-[1.08] tracking-tight text-app-foreground md:text-7xl lg:text-[80px]">
-                Hi, I&apos;m Sethuram.
+                {content.title}
               </h1>
             </Reveal>
 
             <Reveal delay={0.2}>
               <div className="mt-8 max-w-2xl space-y-5 text-xl leading-relaxed text-app-muted md:text-2xl md:leading-relaxed">
-                <p>
-                  I&apos;m a software engineer with over three years of experience
-                  building reliable distributed systems in fintech. I&apos;ve worked
-                  on scalable microservices across credit management, billing,
-                  reconciliation, and IAM with fine-grained access control.
-                </p>
-                <p>
-                  Beyond building systems, I love problem-solving and technical
-                  writing. I enjoy breaking down complex engineering ideas, from
-                  system design patterns to language internals, because I believe
-                  explaining something clearly is one of the best ways to truly
-                  understand it.
-                </p>
+                {content.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
             </Reveal>
           </div>
@@ -64,8 +61,8 @@ export function HeroSection() {
               style={{ y: imageY }}
             >
               <Image
-                src="/profile/sethuram-contact.webp"
-                alt="Sethuram working at a desk"
+                src={person.profileImage}
+                alt={person.profileImageAlt}
                 fill
                 priority
                 loading="eager"

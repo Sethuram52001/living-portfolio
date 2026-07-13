@@ -3,11 +3,19 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import type { ExperiencePhase } from "@/lib/content/schemas";
-import { formatDateRange } from "../common/formatters";
-import { Reveal } from "../common/reveal";
+import type { SectionHeaderContent } from "@/lib/content/schemas";
+import { formatDateRange } from "../ui/formatters";
+import { Reveal } from "../ui/reveal";
+import { SectionHeader } from "../ui/section-header";
 import { TimelineDot } from "./experience-timeline-dot";
 
-export function ExperienceSection({ phases }: { phases: ExperiencePhase[] }) {
+export function ExperienceSection({
+  content,
+  phases,
+}: {
+  content: SectionHeaderContent;
+  phases: ExperiencePhase[];
+}) {
   const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: timelineRef,
@@ -20,14 +28,7 @@ export function ExperienceSection({ phases }: { phases: ExperiencePhase[] }) {
       id="experience"
       className="border-t border-app-border px-6 py-24 md:py-32 lg:px-10"
     >
-      <Reveal>
-        <p className="text-sm font-medium tracking-wide uppercase text-app-accent-green">
-          Experience
-        </p>
-        <h2 className="mt-4 max-w-xl text-4xl font-bold leading-tight tracking-tight text-app-foreground md:text-5xl">
-          The journey from learning computer science to shipping production systems.
-        </h2>
-      </Reveal>
+      <SectionHeader content={content} />
 
       <div ref={timelineRef} className="relative mt-16 md:mt-20">
         <motion.div

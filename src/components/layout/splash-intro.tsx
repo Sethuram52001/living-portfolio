@@ -2,19 +2,24 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { SiteContent } from "@/lib/content/schemas";
 
 const SESSION_KEY = "app-splash-seen";
-const nameLetters = "Sethuram".split("");
 const LETTER_STAGGER = 0.06;
 const LETTER_DURATION = 0.5;
 const NAME_START = 0.3;
-const SUBTITLE_START = NAME_START + nameLetters.length * LETTER_STAGGER + 0.2;
 const HOLD_DURATION = 0.8;
-const EXIT_START = SUBTITLE_START + LETTER_DURATION + HOLD_DURATION;
-const TOTAL_DURATION = EXIT_START + 0.6;
 
-export function SplashIntro({ children }: { children: React.ReactNode }) {
+export function SplashIntro({
+  children,
+  person,
+}: {
+  children: React.ReactNode;
+  person: SiteContent["person"];
+}) {
   const [showSplash, setShowSplash] = useState<boolean | null>(null);
+  const subtitleStart = NAME_START + person.name.length * LETTER_STAGGER + 0.2;
+  const totalDuration = subtitleStart + LETTER_DURATION + HOLD_DURATION + 0.6;
 
   useEffect(() => {
     let isMounted = true;
@@ -36,9 +41,9 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!showSplash) return;
-    const timer = setTimeout(dismiss, TOTAL_DURATION * 1000);
+    const timer = setTimeout(dismiss, totalDuration * 1000);
     return () => clearTimeout(timer);
-  }, [showSplash, dismiss]);
+  }, [showSplash, dismiss, totalDuration]);
 
   if (showSplash === null) {
     return (
@@ -79,8 +84,8 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
               Skip
             </motion.button>
 
-            <div className="flex select-none" aria-label="Sethuram">
-              {nameLetters.map((letter, i) => (
+            <div className="flex select-none" aria-label={person.name}>
+              {person.name.split("").map((letter, i) => (
                 <motion.span
                   key={`${letter}-${i}`}
                   className="text-5xl font-bold tracking-tight text-white md:text-7xl lg:text-8xl"
@@ -121,10 +126,10 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
               transition={{
                 duration: 0.6,
                 ease: [0.22, 1, 0.36, 1],
-                delay: SUBTITLE_START,
+                delay: subtitleStart,
               }}
             >
-              Software Engineer
+              {person.role}
             </motion.p>
 
             <motion.div
@@ -135,7 +140,7 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
               transition={{
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
-                delay: SUBTITLE_START + 0.2,
+                delay: subtitleStart + 0.2,
               }}
               aria-hidden="true"
             />

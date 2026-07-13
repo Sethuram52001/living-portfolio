@@ -1,49 +1,16 @@
 "use client";
 
 import { motion } from "motion/react";
-import type { FieldNoteDocument, ItemDocument } from "@/lib/content/schemas";
-import { getProjectSourceHref } from "../common/links";
-
-type CurrentFocusCard = {
-  category: "Building" | "Writing" | "Learning";
-  detail: string;
-  href?: string;
-  summary: string;
-  title: string;
-};
+import type { HomePageData } from "@/lib/content/home-page";
+import type { HomeContent } from "@/lib/content/schemas";
 
 export function CurrentFocusSection({
-  buildingItem,
-  learningItem,
-  writingNote,
+  cards,
+  content,
 }: {
-  buildingItem: ItemDocument;
-  learningItem: ItemDocument;
-  writingNote: FieldNoteDocument;
+  cards: HomePageData["currentFocus"];
+  content: HomeContent["sectionHeaders"]["currentFocus"];
 }) {
-  const cards: CurrentFocusCard[] = [
-    {
-      category: "Building",
-      detail: buildingItem.motive ?? "Exploring a more understandable way to work with unfamiliar codebases.",
-      href: getProjectSourceHref(buildingItem),
-      summary: buildingItem.summary,
-      title: buildingItem.title,
-    },
-    {
-      category: "Writing",
-      detail: writingNote.motive ?? "Developing the next field note.",
-      href: writingNote.externalUrl,
-      summary: writingNote.summary,
-      title: writingNote.title,
-    },
-    {
-      category: "Learning",
-      detail: learningItem.motive ?? "Exploring system design through focused exercises and implementation.",
-      href: getProjectSourceHref(learningItem),
-      summary: learningItem.summary,
-      title: learningItem.title,
-    },
-  ];
   return (
     <section
       id="current-build"
@@ -52,14 +19,13 @@ export function CurrentFocusSection({
       <div className="relative mx-auto max-w-6xl">
         <div className="max-w-3xl">
           <p className="text-sm font-medium tracking-wide text-app-accent-green uppercase">
-            Currently
+            {content.eyebrow}
           </p>
           <h2 className="mt-5 text-4xl font-bold leading-[1.04] tracking-tight md:text-5xl lg:text-6xl">
-            What&apos;s taking shape.
+            {content.title}
           </h2>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/55">
-            A view into the projects and ideas I&apos;m actively building,
-            exploring, and refining.
+            {content.supporting}
           </p>
         </div>
       </div>
@@ -73,7 +39,7 @@ export function CurrentFocusSection({
   );
 }
 
-function getCurrentFocusTone(category: CurrentFocusCard["category"]) {
+function getCurrentFocusTone(category: HomePageData["currentFocus"][number]["category"]) {
   switch (category) {
     case "Building":
       return "bg-cyan-400";
@@ -84,7 +50,11 @@ function getCurrentFocusTone(category: CurrentFocusCard["category"]) {
   }
 }
 
-function CurrentFocusCardView({ card }: { card: CurrentFocusCard }) {
+function CurrentFocusCardView({
+  card,
+}: {
+  card: HomePageData["currentFocus"][number];
+}) {
   const toneClassName = getCurrentFocusTone(card.category);
   const content = (
     <>
@@ -105,14 +75,14 @@ function CurrentFocusCardView({ card }: { card: CurrentFocusCard }) {
       </p>
       <div className="mt-auto pt-8">
         <p className="text-xs font-medium tracking-[0.18em] text-white/40 uppercase">
-          Motive
+          {card.motiveLabel}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-white/65">
           {card.detail}
         </p>
         {card.href ? (
           <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-white/85 transition-colors group-hover:text-app-accent-green">
-            Open
+            {card.actionLabel}
             <span className="transition-transform group-hover:translate-x-1">
               →
             </span>

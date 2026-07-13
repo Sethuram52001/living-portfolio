@@ -3,6 +3,7 @@ import {
   ChevronRightIcon,
   DocumentIcon as HeroDocumentIcon,
   EnvelopeIcon as HeroEnvelopeIcon,
+  HeartIcon as HeroHeartIcon,
   XMarkIcon as HeroXMarkIcon,
 } from "@heroicons/react/24/outline";
 import type { SVGProps } from "react";
@@ -24,6 +25,10 @@ export function DocumentIcon({ className }: IconProps) {
 
 export function EnvelopeIcon({ className }: IconProps) {
   return <HeroEnvelopeIcon aria-hidden="true" className={className} />;
+}
+
+export function HeartIcon({ className }: IconProps) {
+  return <HeroHeartIcon aria-hidden="true" className={className} />;
 }
 
 export function GitHubIcon({ className }: { className?: string }) {

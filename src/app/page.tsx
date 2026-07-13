@@ -1,28 +1,16 @@
 import type { Metadata } from "next";
-import { PortfolioApp } from "@/components/app/portfolio-app";
-import { siteConfig } from "@/config/site";
-import { loadAllContent } from "@/lib/content/loaders";
-import { resolveHomeSelection } from "@/lib/content/home-selection";
+import { PortfolioPage } from "@/components/portfolio/portfolio-page";
+import { loadHomePageData } from "@/lib/content/home-page";
 import { createPageMetadata } from "@/lib/site/metadata";
 
+const homePageData = loadHomePageData();
+
 export const metadata: Metadata = createPageMetadata({
-  title: "Sethuram | Software Engineer",
-  description:
-    "Sethuram is a software engineer building reliable backend systems, fintech workflows, and AI developer tooling.",
+  title: homePageData.site.metadata.title,
+  description: homePageData.site.metadata.description,
   path: "/",
 });
 
 export default function Home() {
-  const content = loadAllContent();
-
-  return (
-    <PortfolioApp
-      experiencePhases={content.experiencePhases}
-      externalLinks={siteConfig.externalLinks}
-      fieldNotes={content.fieldNotes}
-      highlights={content.highlights}
-      homeSelection={resolveHomeSelection(content)}
-      skillGroups={content.skillGroups}
-    />
-  );
+  return <PortfolioPage data={homePageData} />;
 }

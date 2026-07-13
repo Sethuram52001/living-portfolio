@@ -2,19 +2,22 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import type { ItemDocument } from "@/lib/content/schemas";
-import { getProjectSourceHref } from "./links";
+import type { HomePageData } from "@/lib/content/home-page";
 
 export function ProjectFeatureCard({
   imageFirst,
   index,
-  item,
+  previewLabel,
+  project,
+  projectActionLabel,
 }: {
   imageFirst: boolean;
   index: number;
-  item: ItemDocument;
+  previewLabel: string;
+  project: HomePageData["selectedWork"][number];
+  projectActionLabel: string;
 }) {
-  const sourceHref = getProjectSourceHref(item);
+  const { item, sourceHref } = project;
   const cardClassName = [
     "group/card grid min-h-[calc(100svh-4rem)] w-full overflow-hidden rounded-[2rem] border border-black/[0.04] bg-white shadow-app-xs transition duration-300 lg:min-h-[calc(100svh-5rem)]",
     imageFirst ? "lg:grid-cols-[3fr_2fr]" : "lg:grid-cols-[2fr_3fr]",
@@ -46,7 +49,7 @@ export function ProjectFeatureCard({
           />
         ) : (
           <div className="flex size-full items-center justify-center text-sm font-medium text-app-subtle">
-            Preview coming soon
+            {previewLabel}
           </div>
         )}
       </div>
@@ -99,7 +102,7 @@ export function ProjectFeatureCard({
 
           {sourceHref ? (
             <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-app-foreground transition-colors group-hover/card:text-app-accent-green md:mt-7">
-              View project
+              {projectActionLabel}
               <span className="transition-transform group-hover/card:translate-x-1">
                 →
               </span>

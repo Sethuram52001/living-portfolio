@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { AppShell } from "@/components/app-shell";
-import { siteConfig } from "@/config/site";
+import { AppShell } from "@/components/layout/app-shell";
+import { siteUrl } from "@/config/site";
+import { loadSiteContent } from "@/lib/content/loaders";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,33 +11,35 @@ const inter = Inter({
   variable: "--font-app",
 });
 
+const site = loadSiteContent();
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: siteConfig.title,
-    template: `%s | ${siteConfig.name}`,
+    default: site.metadata.title,
+    template: `%s | ${site.metadata.name}`,
   },
-  description: siteConfig.description,
+  description: site.metadata.description,
   icons: {
     icon: [
       {
-        url: "/profile/sethuram-contact.webp",
+        url: site.person.profileImage,
         type: "image/webp",
       },
     ],
-    shortcut: "/profile/sethuram-contact.webp",
+    shortcut: site.person.profileImage,
   },
   openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.title,
+    title: site.metadata.title,
+    description: site.metadata.description,
+    url: siteUrl,
+    siteName: site.metadata.name,
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: siteConfig.title,
-    description: siteConfig.description,
+    title: site.metadata.title,
+    description: site.metadata.description,
   },
 };
 
@@ -48,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full">
-        <AppShell>{children}</AppShell>
+        <AppShell site={site}>{children}</AppShell>
       </body>
     </html>
   );

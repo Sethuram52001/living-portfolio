@@ -2,15 +2,18 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { TechIcon } from "@/components/tech-icon";
-import type { SkillGroup } from "@/lib/content/schemas";
-import { Reveal } from "../common/reveal";
-import { SectionHeader } from "../common/section-header";
+import { TechIcon } from "@/components/icons/tech-icon";
+import type { SectionHeaderContent, SkillGroup } from "@/lib/content/schemas";
+import { Reveal } from "../ui/reveal";
+import { SectionHeader } from "../ui/section-header";
 
-export function SkillsSection({ skillGroups }: { skillGroups: SkillGroup[] }) {
-  const visibleGroups = [...skillGroups]
-    .sort((left, right) => left.order - right.order)
-    .slice(0, 6);
+export function SkillsSection({
+  content,
+  skillGroups,
+}: {
+  content: SectionHeaderContent;
+  skillGroups: SkillGroup[];
+}) {
 
   return (
     <section
@@ -18,20 +21,10 @@ export function SkillsSection({ skillGroups }: { skillGroups: SkillGroup[] }) {
       className="relative border-t border-app-border px-6 py-24 md:py-32 lg:px-10"
     >
       <div className="relative z-10">
-        <SectionHeader
-          eyebrow="Toolkit"
-          title={
-            <>
-              Backend at the core, {" "}
-              <span className="text-app-muted">
-                with the breadth to build across the product.
-              </span>
-            </>
-          }
-        />
+        <SectionHeader content={content} />
 
         <div className="mt-14 grid gap-5 md:auto-rows-[17rem] md:grid-cols-2 lg:grid-cols-3">
-          {visibleGroups.map((group, index) => (
+          {skillGroups.map((group, index) => (
             <Reveal
               key={group.title}
               className="relative z-0 h-full hover:z-20 focus-within:z-20"

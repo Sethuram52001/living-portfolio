@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import type { HighlightsDocument } from "@/lib/content/schemas";
-import { Reveal } from "../common/reveal";
-import { SectionHeader } from "../common/section-header";
+import { Reveal } from "../ui/reveal";
+import { SectionHeader } from "../ui/section-header";
 
 type Highlight = HighlightsDocument["highlights"][number];
 
@@ -56,8 +56,10 @@ function HighlightCard({
 
 export function HighlightsSection({
   content,
+  eyebrow,
 }: {
   content: HighlightsDocument;
+  eyebrow: string;
 }) {
   return (
     <section
@@ -65,16 +67,12 @@ export function HighlightsSection({
       className="border-t border-app-border px-6 py-24 md:py-32 lg:px-10"
     >
       <SectionHeader
-        eyebrow="Highlights"
-        title={
-          <>
-            {content.title}{" "}
-            <span className="text-app-muted">
-              {content.mutedTitle}
-            </span>
-          </>
-        }
-        supporting={content.supporting}
+        content={{
+          eyebrow,
+          title: content.title,
+          mutedTitle: content.mutedTitle,
+          supporting: content.supporting,
+        }}
       />
 
       <div className="mt-14 grid gap-5 md:grid-cols-2">

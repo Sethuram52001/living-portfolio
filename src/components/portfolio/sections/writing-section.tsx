@@ -1,33 +1,32 @@
-"use client";
-
 import Image from "next/image";
-import { useMemo } from "react";
+import type { HomeContent } from "@/lib/content/schemas";
 import type { FieldNoteDocument } from "@/lib/content/schemas";
-import { formatDate } from "../common/formatters";
-import { MediumIcon } from "../common/icons";
-import { Reveal } from "../common/reveal";
-import { ScrollSnapCarousel } from "../common/scroll-snap-carousel";
-import { SectionHeader } from "../common/section-header";
+import { MediumIcon } from "@/components/icons/app-icons";
+import { formatDate } from "../ui/formatters";
+import { Reveal } from "../ui/reveal";
+import { ScrollSnapCarousel } from "../ui/scroll-snap-carousel";
+import { SectionHeader } from "../ui/section-header";
 
 export function WritingSection({
+  content,
   fieldNotes,
+  mediumHref,
 }: {
+  content: HomeContent["sectionHeaders"]["writing"];
   fieldNotes: FieldNoteDocument[];
+  mediumHref: string;
 }) {
-  const selectedNotes = useMemo(
-    () =>
-      [...fieldNotes]
-        .filter((note) => note.status === "published")
-        .sort((left, right) => right.date.localeCompare(left.date))
-        .slice(0, 4),
-    [fieldNotes],
-  );
-  const slides = selectedNotes.map((note, index) => ({
+  const slides = fieldNotes.map((note, index) => ({
     id: note.externalUrl ?? note.title,
     label: note.title,
     content: (
       <Reveal className="h-full" delay={index * 0.06}>
-        <WritingNoteCard note={note} eager={index === 0} />
+        <WritingNoteCard
+          note={note}
+          eager={index === 0}
+          previewLabel={content.previewLabel}
+          actionLabel={content.cardActionLabel}
+        />
       </Reveal>
     ),
   }));
@@ -39,23 +38,13 @@ export function WritingSection({
     >
       <div className="relative z-10">
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
-          <SectionHeader
-            eyebrow="Writing"
-            title={
-              <>
-                Field notes from the build.{" "}
-                <span className="text-app-muted">
-                  Technical, personal, and still evolving.
-                </span>
-              </>
-            }
-          />
+          <SectionHeader content={content} />
         </div>
 
         <div className="relative left-1/2 w-screen -translate-x-1/2">
           <ScrollSnapCarousel
-            ariaLabel="Selected writing previews"
-            controlsLabel="Writing slide position"
+            ariaLabel={content.carouselLabel}
+            controlsLabel={content.carouselControlsLabel}
             slides={slides}
           />
         </div>
@@ -63,7 +52,7 @@ export function WritingSection({
         <Reveal delay={0.2}>
           <div className="mt-10 flex justify-center">
             <a
-              href="https://medium.com/@sethuram52001"
+              href={mediumHref}
               target="_blank"
               rel="noreferrer"
               className="group inline-flex min-h-14 items-center justify-between gap-3 rounded-full border border-app-border-strong bg-app-surface-card px-4 py-2 text-sm font-semibold text-app-foreground shadow-app-xs transition duration-200 hover:-translate-y-0.5 hover:shadow-app-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-app-foreground"
@@ -71,7 +60,7 @@ export function WritingSection({
               <span className="inline-flex size-8 items-center justify-center rounded-full bg-black text-white">
                 <MediumIcon className="size-4 shrink-0" />
               </span>
-              Read more on Medium
+              {content.mediumActionLabel}
               <span
                 className="text-app-subtle transition-all duration-300 group-hover:translate-x-1 group-hover:text-app-accent-green"
                 aria-hidden="true"
@@ -87,11 +76,15 @@ export function WritingSection({
 }
 
 function WritingNoteCard({
+  actionLabel,
   eager,
   note,
+  previewLabel,
 }: {
+  actionLabel: string;
   eager: boolean;
   note: FieldNoteDocument;
+  previewLabel: string;
 }) {
   const className =
     "group/writing flex h-full flex-col overflow-hidden rounded-[var(--app-radius-xl)] border border-app-border bg-app-surface-card shadow-app-xs transition duration-200";
@@ -110,7 +103,7 @@ function WritingNoteCard({
         ) : (
           <div className="flex size-full items-end bg-[radial-gradient(circle_at_25%_20%,rgba(16,185,129,0.20),transparent_34%),linear-gradient(135deg,#f8fafc,#e2e8f0)] p-5">
             <span className="text-xs font-semibold tracking-wide text-app-subtle uppercase">
-              Article preview
+              {previewLabel}
             </span>
           </div>
         )}
@@ -128,7 +121,7 @@ function WritingNoteCard({
         </p>
         {note.externalUrl ? (
           <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium text-app-foreground transition-colors group-hover/writing:text-app-accent-green">
-            Read on Medium
+            {actionLabel}
             <span
               className="transition-transform duration-200 group-hover/writing:translate-x-1"
               aria-hidden="true"
