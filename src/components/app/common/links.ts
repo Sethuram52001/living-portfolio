@@ -5,7 +5,7 @@ export function getExternalLink(
   links: readonly ExternalLink[],
   label: string,
 ): ExternalLink | undefined {
-  return links.find((link) => link.label === label && !link.placeholder);
+  return links.find((link) => link.label === label);
 }
 
 export function getProjectSourceHref(item: ItemDocument) {
