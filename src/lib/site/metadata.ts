@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/config/site";
+import { siteUrl } from "@/config/site";
+import { loadSiteContent } from "@/lib/content/loaders";
 
 type PageMetadataInput = {
   title?: string;
@@ -12,32 +13,34 @@ type PageMetadataInput = {
 
 export function createPageMetadata({
   title,
-  description = siteConfig.description,
+  description,
   path = "/",
   type = "website",
   publishedTime,
   noIndex = false,
 }: PageMetadataInput = {}): Metadata {
-  const url = new URL(path, siteConfig.url).toString();
+  const site = loadSiteContent();
+  const resolvedDescription = description ?? site.metadata.description;
+  const url = new URL(path, siteUrl).toString();
 
   return {
     title,
-    description,
+    description: resolvedDescription,
     alternates: {
       canonical: path,
     },
     openGraph: {
-      title: title ?? siteConfig.title,
-      description,
+      title: title ?? site.metadata.title,
+      description: resolvedDescription,
       url,
-      siteName: siteConfig.title,
+      siteName: site.metadata.name,
       type,
       ...(publishedTime ? { publishedTime } : {}),
     },
     twitter: {
       card: "summary",
-      title: title ?? siteConfig.title,
-      description,
+      title: title ?? site.metadata.title,
+      description: resolvedDescription,
     },
     ...(noIndex
       ? {

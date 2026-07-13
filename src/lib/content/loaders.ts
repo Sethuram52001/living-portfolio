@@ -2,21 +2,24 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { z } from "zod";
-import { homeSelection } from "../../../content/home";
+import { homeContent } from "../../../content/home";
+import { siteContent } from "../../../content/site";
 import { skillGroups } from "../../../content/skills";
 import {
   experiencePhaseSchema,
   fieldNoteFrontmatterSchema,
   highlightsFrontmatterSchema,
-  homeSelectionSchema,
+  homeContentSchema,
   itemFrontmatterSchema,
   skillGroupSchema,
   type ExperiencePhase,
   type FieldNoteDocument,
   type HighlightsDocument,
-  type HomeSelection,
+  type HomeContent,
   type ItemDocument,
   type SkillGroup,
+  siteContentSchema,
+  type SiteContent,
 } from "./schemas";
 
 const rootDir = process.cwd();
@@ -74,17 +77,24 @@ export function loadExperiencePhases(): ExperiencePhase[] {
   );
 }
 
-export function loadHomeSelection(): HomeSelection {
-  return homeSelectionSchema.parse(homeSelection);
+export function loadHomeContent(): HomeContent {
+  return homeContentSchema.parse(homeContent);
 }
 
-export function loadAllContent() {
+export function loadSiteContent(): SiteContent {
+  return siteContentSchema.parse(siteContent);
+}
+
+export function loadPortfolioContent() {
   return {
     items: loadItems(),
     fieldNotes: loadFieldNotes(),
     highlights: loadHighlights(),
     skillGroups: loadSkillGroups(),
     experiencePhases: loadExperiencePhases(),
-    homeSelection: loadHomeSelection(),
+    home: loadHomeContent(),
+    site: loadSiteContent(),
   };
 }
+
+export type PortfolioContent = ReturnType<typeof loadPortfolioContent>;

@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { loadAllContent } from "./loaders";
-import { HomeSelectionError, resolveHomeSelection } from "./home-selection";
+import { buildHomePageData, HomePageDataError } from "./home-page";
+import { loadPortfolioContent } from "./loaders";
 
 type ValidationIssue = {
   collection: string;
@@ -63,19 +63,19 @@ export function validateAllContent() {
   const issues: ValidationIssue[] = [];
 
   try {
-    const content = loadAllContent();
+    const content = loadPortfolioContent();
 
     checkUniqueSlugs(issues, "items", content.items.map((item) => item.slug));
 
     try {
-      const homeSelection = resolveHomeSelection(content);
+      const homePage = buildHomePageData(content);
 
-      for (const item of homeSelection.selectedWork) {
+      for (const { item } of homePage.selectedWork) {
         checkPublicAsset(issues, "items", item.slug, item.previewImage);
       }
     } catch (error) {
-      if (error instanceof HomeSelectionError) {
-        addIssue(issues, "homeSelection", error.message);
+      if (error instanceof HomePageDataError) {
+        addIssue(issues, "home", error.message);
       } else {
         throw error;
       }
