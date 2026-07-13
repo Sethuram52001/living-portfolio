@@ -1,6 +1,7 @@
-# Sethuram | Portfolio
+# Portfolio
 
 [Live site](https://sethuram52001.vercel.app)
+<img width="1470" height="725" alt="Screenshot 2026-07-14 at 1 44 23 AM" src="https://github.com/user-attachments/assets/8260e4fd-dcc2-485d-b1fe-7f46e5cc4e3d" />
 
 A content-driven single-page portfolio for Sethuram, rebuilt after more than four
 years to give experience, selected projects, technical writing, and current work a
