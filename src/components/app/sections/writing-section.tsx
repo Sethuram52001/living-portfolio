@@ -56,7 +56,6 @@ export function WritingSection({
           <ScrollSnapCarousel
             ariaLabel="Selected writing previews"
             controlsLabel="Writing slide position"
-            layout="writing"
             slides={slides}
           />
         </div>
@@ -70,10 +69,15 @@ export function WritingSection({
               className="group inline-flex min-h-14 items-center justify-between gap-3 rounded-full border border-app-border-strong bg-app-surface-card px-4 py-2 text-sm font-semibold text-app-foreground shadow-app-xs transition duration-200 hover:-translate-y-0.5 hover:shadow-app-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-app-foreground"
             >
               <span className="inline-flex size-8 items-center justify-center rounded-full bg-black text-white">
-                <MediumIcon className="size-4" />
+                <MediumIcon className="size-4 shrink-0" />
               </span>
               Read more on Medium
-              <span className="text-app-subtle transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+              <span
+                className="text-app-subtle transition-all duration-300 group-hover:translate-x-1 group-hover:text-app-accent-green"
+                aria-hidden="true"
+              >
+                →
+              </span>
             </a>
           </div>
         </Reveal>
@@ -122,6 +126,17 @@ function WritingNoteCard({
         <p className="mt-4 line-clamp-4 text-sm leading-relaxed text-app-muted">
           {note.summary}
         </p>
+        {note.externalUrl ? (
+          <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium text-app-foreground transition-colors group-hover/writing:text-app-accent-green">
+            Read on Medium
+            <span
+              className="transition-transform duration-200 group-hover/writing:translate-x-1"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </span>
+        ) : null}
       </div>
     </>
   );

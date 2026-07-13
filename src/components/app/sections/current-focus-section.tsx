@@ -49,15 +49,6 @@ export function CurrentFocusSection({
       id="current-build"
       className="relative left-1/2 w-screen max-w-none -translate-x-1/2 overflow-x-clip bg-black px-6 py-24 text-white md:py-32 lg:px-10"
     >
-      <div
-        className="pointer-events-none absolute -left-40 -top-40 size-[520px] rounded-full bg-cyan-400/10 blur-[120px]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -bottom-40 -right-40 size-[520px] rounded-full bg-amber-400/10 blur-[120px]"
-        aria-hidden="true"
-      />
-
       <div className="relative mx-auto max-w-6xl">
         <div className="max-w-3xl">
           <p className="text-sm font-medium tracking-wide text-app-accent-green uppercase">
@@ -120,7 +111,7 @@ function CurrentFocusCardView({ card }: { card: CurrentFocusCard }) {
           {card.detail}
         </p>
         {card.href ? (
-          <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-white/85 transition group-hover:text-white">
+          <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-white/85 transition-colors group-hover:text-app-accent-green">
             Open
             <span className="transition-transform group-hover:translate-x-1">
               →

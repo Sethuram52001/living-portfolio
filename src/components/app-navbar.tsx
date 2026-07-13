@@ -34,7 +34,7 @@ export function AppNavbar() {
             <a
               key={anchor.href}
               href={anchor.href}
-              className="text-[13px] font-medium text-app-muted transition-colors hover:text-app-foreground"
+              className="text-[13px] font-medium text-app-muted transition-colors hover:text-app-accent-green"
             >
               {anchor.label}
             </a>
@@ -68,7 +68,7 @@ export function AppNavbar() {
               <li key={anchor.href}>
                 <a
                   href={anchor.href}
-                  className="block rounded-[var(--app-radius-sm)] px-3 py-2.5 text-sm font-medium text-app-muted transition-colors hover:bg-app-surface-muted hover:text-app-foreground"
+                  className="block rounded-[var(--app-radius-sm)] px-3 py-2.5 text-sm font-medium text-app-muted transition-colors hover:bg-app-surface-muted hover:text-app-accent-green"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {anchor.label}

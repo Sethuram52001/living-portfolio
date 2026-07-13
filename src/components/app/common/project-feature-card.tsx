@@ -98,7 +98,7 @@ export function ProjectFeatureCard({
           </div>
 
           {sourceHref ? (
-            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-app-foreground md:mt-7">
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-app-foreground transition-colors group-hover/card:text-app-accent-green md:mt-7">
               View project
               <span className="transition-transform group-hover/card:translate-x-1">
                 →

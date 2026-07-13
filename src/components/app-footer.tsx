@@ -9,8 +9,8 @@ const footerLinkLabels = new Set([
 ]);
 
 export function AppFooter() {
-  const footerLinks = siteConfig.externalLinks.filter(
-    (link) => !link.placeholder && footerLinkLabels.has(link.label),
+  const footerLinks = siteConfig.externalLinks.filter((link) =>
+    footerLinkLabels.has(link.label),
   );
 
   return (
@@ -22,7 +22,7 @@ export function AppFooter() {
               Sethuram
             </p>
             <p className="mt-2 text-sm text-app-muted">
-              Backend engineer building reliable systems and useful tools.
+              Software engineer building reliable systems and useful tools.
             </p>
           </div>
 
@@ -37,7 +37,7 @@ export function AppFooter() {
                       href={link.href}
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noreferrer" : undefined}
-                      className="text-sm font-medium text-app-muted transition-colors hover:text-app-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-app-foreground"
+                      className="text-sm font-medium text-app-muted transition-colors hover:text-app-accent-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-app-foreground"
                     >
                       {link.label}
                     </a>
@@ -52,7 +52,7 @@ export function AppFooter() {
           <p>© {new Date().getFullYear()} Sethuram. All rights reserved.</p>
           <a
             href="#about"
-            className="w-fit font-medium text-app-muted transition-colors hover:text-app-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-app-foreground"
+            className="w-fit font-medium text-app-muted transition-colors hover:text-app-accent-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-app-foreground"
           >
             Back to top
           </a>

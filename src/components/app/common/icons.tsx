@@ -1,8 +1,5 @@
 import {
-  ArrowUpRightIcon,
-  ArrowTopRightOnSquareIcon,
   Bars3Icon as HeroBars3Icon,
-  ChatBubbleLeftRightIcon as HeroChatBubbleLeftRightIcon,
   ChevronRightIcon,
   DocumentIcon as HeroDocumentIcon,
   EnvelopeIcon as HeroEnvelopeIcon,
@@ -17,12 +14,6 @@ export function Bars3Icon({ className }: IconProps) {
   return <HeroBars3Icon aria-hidden="true" className={className} />;
 }
 
-export function ChatBubbleLeftRightIcon({ className }: IconProps) {
-  return (
-    <HeroChatBubbleLeftRightIcon aria-hidden="true" className={className} />
-  );
-}
-
 export function ChevronRight({ className }: IconProps) {
   return <ChevronRightIcon aria-hidden="true" className={className} />;
 }
@@ -33,18 +24,6 @@ export function DocumentIcon({ className }: IconProps) {
 
 export function EnvelopeIcon({ className }: IconProps) {
   return <HeroEnvelopeIcon aria-hidden="true" className={className} />;
-}
-
-export function ExternalArrow({
-  className = "ml-2 inline size-3.5",
-}: {
-  className?: string;
-}) {
-  return <ArrowTopRightOnSquareIcon aria-hidden="true" className={className} />;
-}
-
-export function ArrowUpRight({ className }: IconProps) {
-  return <ArrowUpRightIcon aria-hidden="true" className={className} />;
 }
 
 export function GitHubIcon({ className }: { className?: string }) {
@@ -84,7 +63,7 @@ export function MediumIcon({ className }: { className?: string }) {
       className={className}
       viewBox="0 0 24 24"
     >
-      <rect x="2" y="2" width="20" height="20" fill="currentColor" />
+      <rect x="2" y="2" width="20" height="20" fill="#fff" />
       <path d={siMedium.path} fill="#000" />
     </svg>
   );

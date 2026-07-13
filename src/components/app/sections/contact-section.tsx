@@ -6,7 +6,6 @@ import {
   ChevronRight,
   DocumentIcon,
   EnvelopeIcon,
-  ExternalArrow,
   GitHubIcon,
   LinkedInIcon,
 } from "../common/icons";
@@ -16,7 +15,7 @@ import { Reveal } from "../common/reveal";
 type ContactChannel = {
   link: ExternalLink;
   title: string;
-  icon: "document" | "email" | "external" | "github" | "linkedin";
+  icon: "document" | "email" | "github" | "linkedin";
   tone: "primary" | "secondary" | "subtle";
 };
 
@@ -128,7 +127,7 @@ export function ContactSection({
                       Sethuram S V
                     </p>
                     <p className="mt-1 text-sm font-medium text-app-muted">
-                      Backend Engineer
+                      Software Engineer
                     </p>
                   </div>
                 </div>
@@ -171,7 +170,7 @@ function ContactAction({ channel }: { channel: ContactChannel }) {
         <span className="text-sm font-semibold">{channel.title}</span>
       </span>
       <ChevronRight
-        className={`size-4 transition-transform group-hover:translate-x-0.5 ${channel.tone === "primary" ? "text-white/70" : "text-app-subtle"}`}
+        className={`size-4 transition-all group-hover:translate-x-0.5 group-hover:text-app-accent-green ${channel.tone === "primary" ? "text-white/70" : "text-app-subtle"}`}
       />
     </a>
   );
@@ -193,7 +192,5 @@ function ContactChannelIcon({
       return <GitHubIcon className={className} />;
     case "linkedin":
       return <LinkedInIcon className={className} />;
-    case "external":
-      return <ExternalArrow className={className} />;
   }
 }
