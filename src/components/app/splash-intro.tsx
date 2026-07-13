@@ -124,7 +124,7 @@ export function SplashIntro({ children }: { children: React.ReactNode }) {
                 delay: SUBTITLE_START,
               }}
             >
-              Backend Engineer
+              Software Engineer
             </motion.p>
 
             <motion.div

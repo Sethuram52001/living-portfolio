@@ -6,9 +6,9 @@ import { resolveHomeSelection } from "@/lib/content/home-selection";
 import { createPageMetadata } from "@/lib/site/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Backend Engineer",
+  title: "Sethuram | Software Engineer",
   description:
-    "Sethuram is a backend engineer building reliable systems, fintech workflows, and AI developer tooling.",
+    "Sethuram is a software engineer building reliable backend systems, fintech workflows, and AI developer tooling.",
   path: "/",
 });
 

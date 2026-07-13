@@ -17,6 +17,15 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  icons: {
+    icon: [
+      {
+        url: "/profile/sethuram-contact.webp",
+        type: "image/webp",
+      },
+    ],
+    shortcut: "/profile/sethuram-contact.webp",
+  },
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,
